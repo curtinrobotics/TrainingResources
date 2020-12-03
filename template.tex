@@ -1,0 +1,102 @@
+\documentclass[a4paper,12pt]{article}
+% if you need additional LaTeX packages, add them here
+\usepackage[]{geometry}
+\usepackage{graphicx, wrapfig, enumitem}
+\usepackage{xcolor}
+\usepackage{listings, ulem}
+\usepackage[most]{tcolorbox}
+\usepackage{multirow, multicol, tabularx, booktabs}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{subfiles}
+\usepackage[linguistics]{forest}
+
+\graphicspath{{Resources/}}
+
+\setlist{nolistsep}
+\setlength{\parindent}{0in}
+
+\newcommand\ilkeFonts{
+    \usepackage{fontspec}
+    \setmainfont{texgyrepagella-regular.otf}[
+        BoldFont       = texgyrepagella-bold.otf,
+        ItalicFont     = texgyrepagella-italic.otf,
+        BoldItalicFont = texgyrepagella-bolditalic.otf,
+        Scale = MatchLowercase
+    ]
+                    
+    \setmonofont{Inconsolatazi4-Regular.otf}[
+        BoldFont  = Inconsolatazi4-Bold.otf, 
+        Scale     = MatchLowercase
+    ]
+    
+    \setsansfont{MerriweatherSans-Regular.ttf}[
+        BoldFont       = MerriweatherSans-ExtraBold.ttf,
+        ItalicFont     = MerriweatherSans-Italic.ttf,
+        BoldItalicFont = MerriweatherSans-ExBoldIt.ttf,
+        Scale = MatchLowercase
+    ]
+}
+\ifxetex%
+    \ilkeFonts%
+\else\ifluatex%
+    \ilkeFonts%
+\else%
+    % \usepackage[sc]{mathpazo} % Palatino-like serif font
+    \usepackage[T1]{fontenc}
+    \usepackage[scaled=1]{inconsolata} % Fixed-width font
+    \usepackage[sf]{merriweather}
+\fi
+
+\hypersetup{colorlinks=true, linkcolor=blue!50!red, urlcolor=green!70!black}
+
+
+\pagestyle{fancy}
+\fancyfoot[L,C,R]{}
+\fancyhead[L,C,R]{}
+\fancyfoot[L]{}
+\fancyfoot[R]{\thepage}
+\fancyhead[R]{ProjectTitle}
+\fancyhead[L]{
+    \includegraphics[height=1cm]{CRoCLogo(mediumquality).png}
+    % \includegraphics{Resources/CRoCLogo(mediumquality).png}
+}
+
+
+\title{	
+    \begin{center}
+        \includegraphics[width=0.15\textwidth]{CRoCLogo(mediumquality).png}
+    \end{center}
+	\normalfont\normalsize
+	\textsc{Curtin Robotics Club}\\ % Your university, school and/or department name(s)
+	\vspace{25pt} % Whitespace
+	\rule{\linewidth}{0.5pt}\\ % Thin top horizontal rule
+	\vspace{20pt} % Whitespace
+    {\huge PROJECT NAME }\\
+    % {\huge Assignment Report}\\ % The assignment title
+	\vspace{12pt} % Whitespace
+	\rule{\linewidth}{2pt}\\ % Thick bottom horizontal rule
+	\vspace{12pt} % Whitespace
+}
+
+\author{\LARGE Ilke Dincer \\ \small ilke@curtinrobotics.org} % Your name
+
+\date{\normalsize\today} % Today's date (\today) or a custom date
+
+\begin{document}
+
+\pagenumbering{gobble}
+\maketitle
+
+\pagebreak
+\pagenumbering{roman}
+\tableofcontents
+
+\pagenumbering{arabic}
+
+
+
+
+\end{document}

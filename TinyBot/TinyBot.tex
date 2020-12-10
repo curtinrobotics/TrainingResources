@@ -14,11 +14,23 @@
 \usepackage{subfiles}
 \usepackage[linguistics]{forest}
 \usepackage{caption}
+\usepackage{circuitikz}
 
 \graphicspath{{Resources/}}
 
 \setlist{nolistsep}
 \setlength{\parindent}{0in}
+
+
+\usetikzlibrary{decorations.markings}
+\tikzset{middlearrow/.style={
+        decoration={markings,
+            mark= at position 0.5 with {\arrow{#1}} ,
+        },
+        postaction={decorate}
+    }
+}
+
 
 \newcommand\ilkeFonts{
     \usepackage{fontspec}
@@ -139,7 +151,7 @@ These are used in a variety of devices; including robots, vending machines, phon
 
 Arduino's are a development board; consisting of an microcontroller, power regulation, and input/output (also known as IO) pins. As microcontrollers are very tiny prototyping with them or using them to build something would be really difficult. The purpose of an arduino is to provide a medium that allows easy development with microcontrollers. There are many different kinds of arduinos, each using a different microchip.  \\
 
-\begin{wrapfigure}[10]{r}{0.3\textwidth}
+\begin{wrapfigure}[12]{r}{0.3\textwidth}
     \includegraphics[width=0.3\textwidth]{arduino-uno.jpg}
     \caption{An Arduino Uno}
     \label{fig:arduino-real}
@@ -148,6 +160,9 @@ Arduino's are a development board; consisting of an microcontroller, power regul
 
 The Arduino used in this project is the Arduino Uno, which has an ATMega328p microchip as shown in Figure \ref{fig:microchip}. Figure \ref{fig:arduino-real} is what a real Arduino Uno looks like, though the colour and text may be different from brand to brand. Genuine Arduinos are quite expensive, and there are many clones available which are much cheaper. Figure \ref{fig:arduino-pinout} shows a stylised view of an Uno, labelling all the different pinouts. \\
 
+Arduino's and other development boards are used extensively by hobbyists, they are cheap, easy to use, and extremely versatile. Arduino's are used in nearly every project that CRoC runs, and so are very useful to learn to use. 
+
+
 \begin{center}
     \includegraphics[width=0.8\linewidth]{Pinout-UNOrev3_latest.png}
     \captionof{figure}{Pinout of Arduino Uno}
@@ -155,15 +170,79 @@ The Arduino used in this project is the Arduino Uno, which has an ATMega328p mic
 \end{center}
 
 
-Arduino's and other development boards are used extensively by hobbyists, they are cheap, easy to use, and extremely versatile. Arduino's are used in nearly every project that CRoC runs, and so are very useful to learn to use. 
 
 
 
 \section{Motor}
 gearbox, motor
 
-
+\pagebreak
 \section{Motor Controller}
+
+The simplest way to drive a motor is to run a signal through the motor. This will make the motor run in one direction, though it is impossible to control the speed, direction, or to stop the motor. \\
+
+A simple solution to this is using a h-bridge. The simplest h-bridge is shown below, the voltage source is on the left and ground on the right. 
+
+
+\begin{center}
+    
+    \begin{circuitikz}
+    \draw (0,2) -- (0,0) to
+        (0,0) to[nos, l_=$1$] (2,0) to
+        (2,0) to [nos, l_=$2$] (4,0) to
+        (4,0) -- (4,2) to
+        (4,2) to[nos, l_=$3$] (2,2) to
+        (2,2) to[nos, l_=$4$] (0,2);
+    \draw (2,1) node[elmech](motor){M};
+    \draw (motor.north) -- (2,2);
+    \draw (motor.south) -- (2,0);
+    \draw (0,1) -- (-1,1) node[vee]{};
+    \draw (4,1) -- (5,1) node[ground]{};
+    % \draw (2,0) to[sV, color=white, name=M] (2,2);
+    % \mymotor{M}{90};
+    % \draw[rotate=2] (0,2) \mymotor{M}{90} (2,2);
+    \end{circuitikz}
+    % \captionof{figure}{}
+\end{center}
+
+When switches $1$ and $3$ are closed, the current will flow through the
+in the motor will flow in one direction. 
+
+\begin{center}
+    \begin{circuitikz}
+        \draw (0,2) -- (0,0) to
+            % (0,0) to[o-o, l_=$1$] (2,0) to
+            (0,0) -- node[below, yshift=-1.5mm]{1} (2,0) to
+            (2,0) to [nos, l_=$2$] (4,0) to
+            (4,0) -- (4,2) to
+            % (4,2) to[l_=$3$] (2,2) to
+            (4,2) -- node[above, yshift=1.5mm]{3} (2,2) to
+            (2,2) to[nos, l_=$4$] (0,2);
+        \draw (motor.north) -- (2,2);
+        \draw (motor.south) -- (2,0);
+        \draw[color=red!100, thick] (0,1) -- (-1,1) node[vee]{};
+        \draw[color=red!100, thick] (4,1) -- (5,1) node[ground]{};
+        
+        % \draw[color=red!100] (0,2) -- (0,0) to
+        % (0,0) -- (2,0) to
+        % (2,0) -- (4,0) to
+        % (4,0) -- (4,2) to
+        % (4,2) -- (2,2) to
+        % (2,2) -- (0,2);
+
+
+        \begin{scope}[>=latex]
+            \draw[->, color=red!100, thick] (-1,1) -- (0,1);
+            \draw[->, color=red!100, thick] (0,1) -- (0,0);
+            \draw[->, color=red!100, thick] (0,0) -- (2,0);
+            \draw[->, color=red!100, thick] (2,0) -- (2,2) to 
+                (2,2) -- (4,2) to (4,2) -- (4,1);
+        \end{scope}
+        \draw (2,1) node[elmech](motor){M};
+        \end{circuitikz}
+\end{center}
+
+
 
 
 \section{Driving}

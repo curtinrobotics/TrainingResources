@@ -36,37 +36,6 @@
     { \draw[#1] ($(#2)+({#5*cos(#3)},{#5*sin(#3)})$) arc (#3:#4:#5); }
 
 
-\newcommand\ilkeFonts{
-    \usepackage{fontspec}
-    \setmainfont{texgyrepagella-regular.otf}[
-        BoldFont       = texgyrepagella-bold.otf,
-        ItalicFont     = texgyrepagella-italic.otf,
-        BoldItalicFont = texgyrepagella-bolditalic.otf,
-        Scale = MatchLowercase
-    ]
-                    
-    \setmonofont{Inconsolatazi4-Regular.otf}[
-        BoldFont  = Inconsolatazi4-Bold.otf, 
-        Scale     = MatchLowercase
-    ]
-    
-    \setsansfont{MerriweatherSans-Regular.ttf}[
-        BoldFont       = MerriweatherSans-ExtraBold.ttf,
-        ItalicFont     = MerriweatherSans-Italic.ttf,
-        BoldItalicFont = MerriweatherSans-ExBoldIt.ttf,
-        Scale = MatchLowercase
-    ]
-}
-\ifxetex%
-    \ilkeFonts%
-\else\ifluatex%
-    \ilkeFonts%
-\else%
-    % \usepackage[sc]{mathpazo} % Palatino-like serif font
-    \usepackage[T1]{fontenc}
-    \usepackage[scaled=1]{inconsolata} % Fixed-width font
-    \usepackage[sf]{merriweather}
-\fi
 
 \hypersetup{colorlinks=true, linkcolor=blue!50!red, urlcolor=green!70!black}
 
@@ -87,6 +56,10 @@
   #1,
   code={\ifdefempty{\tcbtitletext}{}{\tcbset{before upper={\tcbtitle\par\medskip}}}},
 }
+
+\newenvironment{centerdiagram}[1][\topsep]
+  {\setlength{\topsep}{#1}\par\kern\topsep\centering}% \begin{mycenter}[<len>]
+  {\par\kern\topsep}% \end{mycenter}
 
 \pagestyle{fancy}
 \fancyfoot[L,C,R]{}
@@ -220,26 +193,35 @@ The 5V and 3.3V  pins supply 5 volts or 3.3 volts respectively for powering othe
 
 
 
-\section{Motor}
+\section{Motor} \label{sec:motor}
 gearbox, motor
 
 \pagebreak
 \section{Motor Controller}
 
-The simplest way to drive a motor is to run a current through the motor. This will make the motor run in one direction, though it is impossible to control the speed, direction, or to stop the motor. \\
+The motors used in this guide, the N20 motors, have a stall current of 1.6A (see section \ref{sec:motor} for what stall current means). The digital pins on an Arduino Uno supply at most 40mA. This is not enough to power the motors.\\ 
 
-A simple solution to this is to use a h-bridge. The simplest h-bridge is shown below, the voltage source is on the left and ground on the right. 
+To get around this, the Arduino instead interfaces with a \textbf{motor controller}. Motor controllers have a seperate power supply that can supply enough current to drive the motor. Motor controllers also have digital inputs that allow control of the motor. \\
 
+
+An added benefit of using a motor controller is that it is possible to control the direction, and the speed of the motor. 
+
+\bigskip
+
+The phrase motor controller is often used as a generic term for any device, circuit, or IC which controls a motor. However, motor controllers are a circuit that consists of a motor driver, and some digital harness that acts as an interface to the driver. Motor controllers can be dropped into a circuit and easily controlled, allowing feedback from the motor and more control than a simple driver provides. \\
+
+
+\subsection{Motor Driver}
+A basic motor-\textbf{driver} is a H-bridge. The simplest H-bridge is shown in the below schematics, as well as an explanation of how using a H-bridge allows control over the motors direction. 
 
 \begin{center}
-    
     \begin{circuitikz}
     \draw (0,2) -- (0,0) to
-        (0,0) to[nos, l_=$1$] (2,0) to
-        (2,0) to [nos, l_=$2$] (4,0) to
+        (0,0) to[nos, l^=$1$] (2,0) to
+        (2,0) to [nos, l^=$2$] (4,0) to
         (4,0) -- (4,2) to
-        (4,2) to[nos, l_=$3$] (2,2) to
-        (2,2) to[nos, l_=$4$] (0,2);
+        (4,2) to[nos, l^=$3$] (2,2) to
+        (2,2) to[nos, l^=$4$] (0,2);
     \draw (2,1) node[elmech](motor){M};
     \draw (motor.north) -- (2,2);
     \draw (motor.south) -- (2,0);
@@ -259,25 +241,17 @@ When switches $1$ and $3$ are closed, the current will flow through the motor ma
     \begin{circuitikz}
         \draw (0,2) -- (0,0) to
             % (0,0) to[o-o, l_=$1$] (2,0) to
-            (0,0) -- node[below, yshift=-1.5mm]{1} (2,0) to
-            (2,0) to [nos, l_=$2$] (4,0) to
+            (0,0) -- node[above, yshift=1.5mm]{1} (2,0) to
+            (2,0) to [nos, l^=$2$] (4,0) to
             (4,0) -- (4,2) to
             % (4,2) to[l_=$3$] (2,2) to
-            (4,2) -- node[above, yshift=1.5mm]{3} (2,2) to
-            (2,2) to[nos, l_=$4$] (0,2);
+            (4,2) -- node[below, yshift=-1.5mm]{3} (2,2) to
+            (2,2) to[nos, l^=$4$] (0,2);
         \draw (motor.north) -- (2,2);
         \draw (motor.south) -- (2,0);
         \draw[color=red!100, thick] (0,1) -- (-1,1) node[vee]{};
         \draw[color=red!100, thick] (4,1) -- (5,1) node[ground]{};
-        
-        % \draw[color=red!100] (0,2) -- (0,0) to
-        % (0,0) -- (2,0) to
-        % (2,0) -- (4,0) to
-        % (4,0) -- (4,2) to
-        % (4,2) -- (2,2) to
-        % (2,2) -- (0,2);
-
-
+     
         \begin{scope}[>=latex]
             \draw[->, color=red!100, thick] (-1,1) -- (0,1);
             \draw[->, color=red!100, thick] (0,1) -- (0,0);
@@ -296,25 +270,17 @@ In the same vein, closing switches 2 and 4 will cause the motor to turn clockwis
 \begin{center}
     \begin{circuitikz}
         \draw (0,2) -- (0,0) to
-            (0,0) to[nos, l_=$1$] (2,0) to
+            (0,0) to[nos, l^=$1$] (2,0) to
             % (2,0) to [nos, l_=$2$] (4,0) to
-            (2,0) -- node[below, yshift=-1.5mm]{2}(4,0) to 
+            (2,0) -- node[above, yshift=1.5mm]{2}(4,0) to 
             (4,0) -- (4,2) to
-            (4,2) to[nos, l_=$3$] (2,2) to
+            (4,2) to[nos, l^=$3$] (2,2) to
             % (2,2) to[nos, l_=$4$] (0,2);
-            (2,2) -- node[above, yshift=1.5mm]{4} (0,2);
+            (2,2) -- node[below, yshift=-1.5mm]{4} (0,2);
         \draw (motor.north) -- (2,2);
         \draw (motor.south) -- (2,0);
         \draw[color=red!100, thick] (0,1) -- (-1,1) node[vee]{};
         \draw[color=red!100, thick] (4,1) -- (5,1) node[ground]{};
-        
-        % \draw[color=red!100] (0,2) -- (0,0) to
-        % (0,0) -- (2,0) to
-        % (2,0) -- (4,0) to
-        % (4,0) -- (4,2) to
-        % (4,2) -- (2,2) to
-        % (2,2) -- (0,2);
-
 
         \begin{scope}[>=latex]
             \draw[->, color=red!100, thick] (-1,1) -- (0,1);
@@ -331,6 +297,83 @@ In the same vein, closing switches 2 and 4 will cause the motor to turn clockwis
 
     \end{circuitikz}
 \end{center}
+
+If pins 4 \& 3 or pins 1 \& 2 are closed at the same time, a short circuit will be formed and the H-bridge will break. \\
+
+\begin{minipage}{0.5\textwidth}\vspace{0pt}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,2) -- (0,0) to
+                (0,0) to[nos, l^=$1$] (2,0) to
+                (2,0) to [nos, l^=$2$] (4,0) to
+                % (2,0) -- node[below, yshift=-1.5mm]{2}(4,0) to 
+                (4,0) -- (4,2) to
+                % (4,2) to[nos, l_=$3$] (2,2) to
+                % (2,2) to[nos, l_=$4$] (0,2);
+                (4,2) -- node[below, yshift=-1.5mm]{3} (2,2) to
+                (2,2) -- node[below, yshift=-1.5mm]{4} (0,2);
+            \draw (motor.north) -- (2,2);
+            \draw (motor.south) -- (2,0);
+            \draw[color=red!100, thick] (0,1) -- (-1,1) node[vee]{};
+            \draw[color=red!100, thick] (4,1) -- (5,1) node[ground]{};
+            
+            \begin{scope}[>=latex]
+                \draw[->, color=red!100, thick] (-1,1) -- (0,1);
+                \draw[->, color=red!100, thick] (0,1) -- (0,2);
+                \draw[->, color=red!100, thick] (0,2) -- (2.1,2);
+                \draw[->, color=red!100, thick] (2,2) -- (4.01,2);
+                % \draw[->, color=red!100, thick] (2,0) -- (4,0); 
+                \draw[->, color=red!100, thick] (4,2) -- (4,1);
+            \end{scope}
+            \draw (2,1) node[elmech](motor){M};
+    
+        \end{circuitikz}
+    \end{center}
+
+\end{minipage}
+\begin{minipage}{0.5\textwidth}\vspace{0pt}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,2) -- (0,0) to
+                % (0,0) to[nos, l_=$1$] (2,0) to
+                % (2,0) to [nos, l_=$2$] (4,0) to
+                (0,0) -- node[above, yshift=1.5mm]{1}(2,0) to 
+                (2,0) -- node[above, yshift=1.5mm]{2}(4,0) to 
+                (4,0) -- (4,2) to
+                (4,2) to[nos, l^=$3$] (2,2) to
+                (2,2) to[nos, l^=$4$] (0,2);
+                % (2,2) -- node[above, yshift=1.5mm]{4} (0,2);
+            \draw (motor.north) -- (2,2);
+            \draw (motor.south) -- (2,0);
+            \draw[color=red!100, thick] (0,1) -- (-1,1) node[vee]{};
+            \draw[color=red!100, thick] (4,1) -- (5,1) node[ground]{};    
+    
+            \begin{scope}[>=latex]
+                \draw[->, color=red!100, thick] (-1,1) -- (0,1);
+                \draw[->, color=red!100, thick] (0,1) -- (0,0);
+                \draw[->, color=red!100, thick] (0,0) -- (2.1,0);
+                % \draw[->, color=red!100, thick] (2,2) -- (2,0);
+                \draw[->, color=red!100, thick] (2,0) -- (4,0); 
+                \draw[->, color=red!100, thick] (4,0) -- (4,1);
+            \end{scope}
+            \draw (2,1) node[elmech](motor){M};
+    
+        \end{circuitikz}
+    \end{center}
+\end{minipage}
+
+\bigskip \bigskip
+
+Breaking a H-bridge is fairly common, especially the cheaper low power ones. Some higher end H-bridges are designed to prevent the H-bridge from shorting if the wrong pins are closed. 
+Most motor-controllers will have this protection built-in, though most motor-drivers do not. 
+
+\bigskip
+
+
+% In the case of the H-bridge, the voltage supplied (from the left on the diagrams displayed above) is a high enough voltage, with a high enough current, to drive the motor. The switches (1, 2, 3, 4) are, in their simplest form, a button that is closed upon a signal from the microcontroller. Switches require a very small amount of power to close, and so can be controlled directly from the motor controller. 
+
+
+\subsection{Motor Controller}
 
 
 

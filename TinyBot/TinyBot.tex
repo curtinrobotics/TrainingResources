@@ -15,6 +15,7 @@
 \usepackage[linguistics]{forest}
 \usepackage{caption}
 \usepackage{circuitikz}
+\usepackage{tcolorbox}
 
 \graphicspath{{Resources/}}
 
@@ -66,6 +67,23 @@
 
 \hypersetup{colorlinks=true, linkcolor=blue!50!red, urlcolor=green!70!black}
 
+% defining a warning box
+\definecolor{orang}{RGB}{255,155,0}
+
+\newtcolorbox[auto counter,number within=section]{warningbox}[1][]{
+  enhanced jigsaw,colback=white,colframe=orang,coltitle=orang,
+  fonttitle=\bfseries\sffamily,
+  sharp corners,
+  detach title,
+  leftrule=22mm,
+  % What you need %%%%%%%%%%%%
+  underlay unbroken and first={\node[below,text=black,anchor=east]
+  at ([xshift=-22.5pt]interior.base west) {\Huge  \textbf{!}};},
+  %%%%%%%%%%%%%%%%%%%%%%%%
+  breakable,pad at break=1mm,
+  #1,
+  code={\ifdefempty{\tcbtitletext}{}{\tcbset{before upper={\tcbtitle\par\medskip}}}},
+}
 
 \pagestyle{fancy}
 \fancyfoot[L,C,R]{}
@@ -117,13 +135,26 @@ There are many different components of a robot; the most important being the mic
 
 This guide will take you through building a simple robot dubbed TinyBot. It has 2 wheels, a caster wheel, a battery, an arduino, and a breadboard.
 
+\section{Assumed Knowledge}
+
+The below knowledge is assumed for this project. Feel free to ask other CRoC members for help or explanation of the below concepts.
+
+
+\begin{itemize}
+    \item Basic circuit knowledge
+    \begin{itemize}
+        \item Current, Voltage, Resistance
+        \item Series and Parallel
+    \end{itemize}
+    \item Breadboards
+\end{itemize}
 
 \section{Components}
  
 \begin{tabularx}{\linewidth}{cccX}
     \toprule
     Component & Quantity & Price & Sources \\ \midrule
-    Arduino Uno & 1 & \$5-\$80 & Arduino's are discuessed in Section \ref{sec:microcontroller}. A genuine Arduino will cost about \$80, however Arduino clones can be bought online for as little as \$5. Ebay is a good starting point for finding an Uno. \\
+    Arduino Uno & 1 & \$5-\$80 & Arduino's are discussed in Section \ref{sec:microcontroller}. A genuine Arduino will cost about \$80, however Arduino clones can be bought online for as little as \$5. Ebay is a good starting point for finding an Uno. \\
     Breadboard & 1 & & \\
     N20 Motor & 2 & & \\
     H-Bridge & 1 & & \\  
@@ -140,8 +171,8 @@ Additional sensors can be bought and integrated with TinyBot, however that is no
 
 \pagebreak
 \section{Microcontroller} \label{sec:microcontroller}
-\begin{wrapfigure}{l}{0.2\textwidth}
-    \includegraphics[width=0.18\textwidth]{medium-ATmega328-SPDIP-28.png}
+\begin{wrapfigure}[7]{l}{0.3\textwidth}
+    \includegraphics[width=0.25\textwidth]{medium-ATmega328-SPDIP-28.png}
     \captionof{figure}{A Microchip}
     \label{fig:microchip}
 \end{wrapfigure}
@@ -149,9 +180,11 @@ Additional sensors can be bought and integrated with TinyBot, however that is no
 A microcontroller is a really small microcomputer on a very small chip, see Figure \ref{fig:microchip}.
 These are used in a variety of devices; including robots, vending machines, phones, computers, etc. \\
 
-Arduino's are a development board; consisting of an microcontroller, power regulation, and input/output (also known as IO) pins. As microcontrollers are very tiny prototyping with them or using them to build something would be really difficult. The purpose of an arduino is to provide a medium that allows easy development with microcontrollers. There are many different kinds of arduinos, each using a different microchip.  \\
+Arduino's are a development board; consisting of an microcontroller, power regulation, and input/output (also known as IO) pins. As microcontrollers are very tiny prototyping with them or using them to build something would be really difficult. The purpose of an arduino is to provide a medium that allows easy development with microcontrollers. There are many different kinds of arduinos, each using a different microchip. \\
 
-\begin{wrapfigure}[12]{r}{0.3\textwidth}
+\begin{wrapfigure}[10]{r}{0.35\textwidth}
+    \centering
+    \vspace{-0.5cm}
     \includegraphics[width=0.3\textwidth]{arduino-uno.jpg}
     \caption{An Arduino Uno}
     \label{fig:arduino-real}
@@ -160,7 +193,18 @@ Arduino's are a development board; consisting of an microcontroller, power regul
 
 The Arduino used in this project is the Arduino Uno, which has an ATMega328p microchip as shown in Figure \ref{fig:microchip}. Figure \ref{fig:arduino-real} is what a real Arduino Uno looks like, though the colour and text may be different from brand to brand. Genuine Arduinos are quite expensive, and there are many clones available which are much cheaper. Figure \ref{fig:arduino-pinout} shows a stylised view of an Uno, labelling all the different pinouts. \\
 
-Arduino's and other development boards are used extensively by hobbyists, they are cheap, easy to use, and extremely versatile. Arduino's are used in nearly every project that CRoC runs, and so are very useful to learn to use. 
+Arduino's and other development boards are used extensively by hobbyists, they are cheap, easy to use, and extremely versatile. Arduino's are used in nearly every CRoC project, and can be used in countless DIY projects. \\
+
+
+An Uno has many different ports and pins. Figure \ref{fig:arduino-pinout} shows and labels all the different ports on a standard Uno. \\
+
+An important distinction to make is between the pins 5V, 3.3V, and VIN. VIN stands for voltage in; and this port is used to supply power to the arduino from batteries. Power can also be supplied through the barrel jack connection, see the black rectangle like block on figure \ref{fig:arduino-pinout}. 
+
+The 5V and 3.3V  pins supply 5 volts or 3.3 volts respectively for powering other commponents, such as LEDs, ICs, or sensors.  
+
+\begin{warningbox}
+    Never put supply voltage into the 3.3V or 5V pins; this will break the Arduino. 
+\end{warningbox}
 
 
 \begin{center}

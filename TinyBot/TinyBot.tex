@@ -196,6 +196,26 @@ The 5V and 3.3V  pins supply 5 volts or 3.3 volts respectively for powering othe
 \section{Motor} \label{sec:motor}
 gearbox, motor
 
+To follow this guide it is not necessary to have an understanding of how motors work, though it may be interesting for you to learn. \href{https://www.explainthatstuff.com/electricmotors.html}{This} link has a good indepth explanation.
+
+
+Motors turn in proportion to the amount of current put through them. More current means a faster motor. 
+
+When a motor stalls, it stops rotating. This happens when there is more force acting on the motor shaft than the motor can overcome. The stall torque of a motor is the maximum current drawn when a motor stalls, in other words, applying its maximum torque. \\
+
+
+Similarly, free current is the current drawn when the motor is rotating freely, under no load. 
+
+\bigskip
+
+
+Each motor has a certain amount of torque it can provide. Gearboxes can be attached to a motor to increase the amount of torque provided, and change the rotations per minute (RPM) of the motor. 
+
+
+% $TODO - Someone who knows about gearboxes, please complete this section. 
+
+
+
 \pagebreak
 \section{Motor Controller}
 
@@ -204,7 +224,7 @@ The motors used in this guide, the N20 motors, have a stall current of 1.6A (see
 To get around this, the Arduino instead interfaces with a \textbf{motor controller}. Motor controllers have a seperate power supply that can supply enough current to drive the motor. Motor controllers also have digital inputs that allow control of the motor. \\
 
 
-An added benefit of using a motor controller is that it is possible to control the direction, and the speed of the motor. 
+An added benefit of using a motor controller is that it is possible to control the direction and the speed of the motor. 
 
 \bigskip
 
@@ -365,7 +385,10 @@ If pins 4 \& 3 or pins 1 \& 2 are closed at the same time, a short circuit will 
 \bigskip \bigskip
 
 Breaking a H-bridge is fairly common, especially the cheaper low power ones. Some higher end H-bridges are designed to prevent the H-bridge from shorting if the wrong pins are closed. 
-Most motor-controllers will have this protection built-in, though most motor-drivers do not. 
+Most motor-controllers will have this protection built-in, though most motor-drivers do not.
+
+
+While working on this guide, don't worry if your H-bridge stops working suddenly, it is quite common to short them out. 
 
 \bigskip
 
@@ -374,7 +397,22 @@ Most motor-controllers will have this protection built-in, though most motor-dri
 
 
 \subsection{Motor Controller}
+% https://www.robotshop.com/en/roboclaw-2x30a-6-34vdc-regenerative-motor-controller.html
 
+
+\begin{wrapfigure}[12]{l}{0.4\textwidth}
+    \includegraphics[width=0.4\textwidth]{roboclaw.jpg}
+    \caption{\href{https://www.robotshop.com/media/files/content/b/bat/pdf/roboclaw_datasheet_2x30a-2.pdf}{RoboClaw Dual Channel DC Motor Controller}}
+    \label{fig:roboclaw}
+\end{wrapfigure}
+
+A motor controller has a lot more features than a motor driver. See, for example, the RoboClaw (see Figure \ref{fig:roboclaw}) which has in built features such as PID tuning, data logging, diagnostic LEDs, and serial control. \\
+
+
+The in-built control modes, as well as being capable of serial communication, is present only in motor controllers. Motor drivers are far simpler in comparision. \\
+
+
+\bigskip \bigskip
 
 
 \section{Driving}

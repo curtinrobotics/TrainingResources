@@ -261,6 +261,7 @@ The below knowledge is assumed for this project. Feel free to ask other CRoC mem
         \item Series and Parallel
     \end{itemize}
     \item Breadboards
+    \item Basic coding skills
 \end{itemize}
 
 \section{Components}\label{sec:components}
@@ -271,7 +272,7 @@ The below knowledge is assumed for this project. Feel free to ask other CRoC mem
     Arduino Uno & 1 & \$5-\$80 & Arduino's are discussed in Section \ref{sec:microcontroller}. A genuine Arduino will cost about \$80, however Arduino clones can be bought online for as little as \$5. Ebay is a good starting point for finding an Uno. \\
     Breadboard & 1 & & \\
     N20 Motor & 2 & & \\
-    H-Bridge & 1 & & \\  
+    Dual H-Bridge & 1 & \$7 - \$16&   Altronics stocks both motor drivers and motor controllers, though they can also be found on eBay and sites such as RS components. For this tutorial, only a \href{https://www.altronics.com.au/p/z2900-l293d-motor-drive-ic/}{basic H-bridge driver} is necessary (costing about \$7), though more expensive motor controllers can be used as well.\\
     Wheels & 2& \$0 & The wheels for this project are 3D printed, and are supplied by the club. \\
     Caster Wheel & 1 & ? & The caster wheel consists of 2 parts, a marble and it's 3D printed casing. The 3D print will be supplied by the club at no charge, however you must source your own marble.\\
     \bottomrule
@@ -368,14 +369,17 @@ Each motor has a certain amount of torque it can provide. Gearboxes can be attac
 
 The motors used in this guide, the N20 motors, have a stall current of 1.6A (see section \ref{sec:motor} for what stall current means). The digital pins on an Arduino Uno supply at most 40mA. This is not enough to power the motors.\\ 
 
-To get around this, the Arduino instead interfaces with a \textbf{motor controller}. Motor controllers have a seperate power supply that can supply enough current to drive the motor. Motor controllers also have digital inputs that allow control of the motor. \\
+To get around this, the Arduino instead interfaces with a \textbf{motor controller}. Motor controllers have a separate power supply that can supply enough current to drive the motor. Motor controllers also have digital inputs that allow control of the motor. \\
 
 
 An added benefit of using a motor controller is that it is possible to control the direction and the speed of the motor. 
 
 \bigskip
 
-The phrase motor controller is often used as a generic term for any device, circuit, or IC which controls a motor. However, motor controllers are a circuit that consists of a motor driver, and some digital harness that acts as an interface to the driver. Motor controllers can be dropped into a circuit and easily controlled, allowing feedback from the motor and more control than a simple driver provides. \\
+The phrase motor controller is often used as a generic term for any device, circuit, or IC which controls a motor. However, motor controllers are a circuit that consists of a motor driver and some digital harness that acts as an interface to the driver. Motor controllers can be dropped into a circuit and easily controlled, allowing feedback from the motor and more control than a simple driver provides. \\
+
+
+% An example of a motor driver versus a motor controller is the \href{https://www.altronics.com.au/p/z2900-l293d-motor-drive-ic/}{L293D} motor driver versus the \href{https://www.altronics.com.au/p/z6442-l298n-dual-h-bridge-motor-module-for-arduino/}{L298N}. 
 
 
 \subsection{Motor Driver}

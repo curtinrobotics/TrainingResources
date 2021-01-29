@@ -567,18 +567,56 @@ The in-built control modes, as well as being capable of serial communication, is
 
 \pagebreak
 \section{Wiring} \label{wiring}
-To wire up the circuit, get all the components listed in \ref{sec:components}.
+If you just want to see the wiring schematic, see Figure \ref{fig:schematic-hbridge}. Continue reading for an explanation of the L293D H-Bridge and of the circuit. 
+
+\bigskip
 
 Before starting construction on any project, it is always a good idea to wire up the circuit on a flat breadboard and arduino; as it is far easier to build the circuit on its own before putting together all the parts. \\
 
+Datasheets hold a lot of useful information about microchips, the data sheet for the L293D H-Bridge can can be found online (linked \href{https://www.altronics.com.au/p/z2900-l293d-motor-drive-ic/}{here}).
 
-The H-bridge used in this project, 
+\begin{figure}[h]
+    \centering
+     \begin{subfigure}[b]{0.5\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{L293D-block-diagram.jpg}
+         \caption{Block Diagram for 20 Pin Chip}
+         \label{fig:l293d-block-diagram}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{L293D-pinout.jpg}
+         \caption{Pinout of 16 Pin Chip}
+         \label{fig:l293d-pinout}
+     \end{subfigure}
+     \hfill
+        \caption{Diagrams from the L293D datasheet}
+        \label{fig:l293d}
+\end{figure}
+
+Block diagrams such as in Figure \ref{fig:l293d-block-diagram} can be quite confusing to read; there's a lot of symbols that you may or may not know. 
+
+The hollow circles along the outside rectangle of the block diagram in Figure \ref{fig:l293d-block-diagram} represent the pin outs on the microchip, they can be matched up with labelled pins in Figure \ref{fig:l293d-pinout}. There is also a 20 pin variant of this H-bridge, which is why some of the pin labels on the block diagram are greater than 16.\\
+
+The hollow triangles in the block diagram are buffers to drive the MOSFET (depicted the bold black triangle and lines, which are the "switches" in this H-Bridge). Basically, setting \lstinline[]!IN1=HIGH! when \lstinline[]!ENABLE1=HIGH! will close the switch and provide power to \lstinline[]!OUT1!. 
+
+Using the buffer allows a low voltage signal, from the digital ports on the Arduino, to close the switch and allow the higher voltage from \lstinline[]!ENABLE1! to flow through to the motor. If \lstinline[]!ENABLE! has no power, then the motor will not turn; the voltage provided from the digital pins is not sufficient to drive the motor.  This is why in Figure \ref{fig:schematic-hbridge} you'll notice that all 4 \lstinline[]!ENABLE! pins are all linked and permanently set to 9V (\lstinline[]!HIGH!) \\
 
 
+A MOSFET (mentioned above) is an advanced digital component, not discussed in University till about 3rd year engineering units. They are quite complicated components, though can be effectively summed up as an electrically controlled switch. Providing the right signal to the MOSFET will allow current to flow in much the same manner as pressing a push buttons allows current to flow. This information about MOSFETs is included for completeness, and to satisfy any curiosity. It is not important to understand MOSFETs at this level, though if you are curious the internet has many resources available for learning about elecitrical components in depth. \\
 
-Follow the wiring guide below.
+\begin{center}
+    \includegraphics[width=\textwidth]{Hbridge_bb.png}
+    \captionof{figure}{Wiring Schematic for H-Bridge}
+    \label{fig:schematic-hbridge}
+\end{center}
 
-\pagebreak
+Make sure to check which wire is the positive wire on the motor you have, it should be written on the back plate of the motor. Plugging the motor in backwards will not break anything, the motor will just spin backwards. 
+It is mainly important to ensure that the motors spin in the same direction. 
+
+
+\newpage
 \section{Code}
 
 
@@ -665,19 +703,19 @@ Thinking back to the H-Bridge, to control the direction of the motor we want to 
 To make it easier on ourselves, let's assign the pin numbers for each switch to a variable. Let's put these at the very top of our script, so that every function we write later can access the variables. 
 
 \begin{lstlisting}
-//Motor A
-const int motorPin1  = 6;  // Pin 14 of L293
+//Motor 1
+const int motorPin1  = 6;  // Pin 15 of L293
 const int motorPin2  = 5;  // Pin 10 of L293
-//Motor B
+//Motor 2
 const int motorPin3  = 9; // Pin  7 of L293
 const int motorPin4  = 8;  // Pin  2 of L293
 \end{lstlisting}
 
-The keyword \lstinline[]!const! means that the pin number cannot be changed. 
+The keyword \lstinline[]!const! means that the variable cannot be changed later in the code. 
 The value of the variables can be changed to any digital pin number on the Arduino, though make sure that the variable number matches the physical pin used. \\
 
 
-Next we need to set the pin mode of the pins we're using, all the pin's for the motor need to be set to \lstinline[]!OUTPUT!.
+Next we need to set the pin mode of the pins we're using to interact with the H-Bridge.
 
 \begin{lstlisting}
 void setup(){
@@ -689,6 +727,96 @@ void setup(){
 }
 \end{lstlisting}
 
+
+To drive forward, we want the motors to turn in the same direction and so we want to enable \lstinline[]!IN1! and \lstinline[]!IN3!. 
+
+\begin{lstlisting}
+void setup() {
+    // set pinMode as done above
+
+    digitalWrite(motorPin1, HIGH);
+    digitalWrite(motorPin2, LOW);
+    digitalWrite(motorPin3, HIGH);
+    digitalWrite(motorPin4, LOW);
+    delay(2000); // wait for 2 seconds
+}
+\end{lstlisting}
+As this code is in \lstinline[]!setup()!, it will run once, i.e. the robot will drive forwards for 2 seconds, then stop. If you want the robot to drive forward continuously, then move the digital writes to \lstinline[]!loop()!. Make sure to put the robot on the floor so that it doesn't drive off the desk.
+
+
+
+As you can imagine, having to set all 4 motor pins individually when controlling the robot can get quite tedious. A simple solution to this is to create functions for driving in each direction. We're going to assume that the left motor is motor 1, and the right motor is motor 2.
+
+\begin{lstlisting}
+void driveForward(n) {
+    // motor 1 - left
+    digitalWrite(motorPin1, HIGH);
+    digitalWrite(motorPin2, LOW);
+    // motor 2 - right
+    digitalWrite(motorPin3, HIGH);
+    digitalWrite(motorPin4, LOW);
+    delay(n*1000); // wait for n seconds
+}
+
+void driveBackwards(n) {
+    // motor 1 - left
+    digitalWrite(motorPin1, LOW);
+    digitalWrite(motorPin2, HIGH);
+    // motor 2 - right
+    digitalWrite(motorPin3, LOW);
+    digitalWrite(motorPin4, HIGH);
+    delay(n*1000); // wait for n seconds
+}
+
+void turnLeft(n) {
+    // turn off right motor, and drive left motor forwards
+    // motor 1 - left
+    digitalWrite(motorPin1, HIGH);
+    digitalWrite(motorPin2, LOW);
+    // motor 2 - right
+    digitalWrite(motorPin3, LOW);
+    digitalWrite(motorPin4, LOW);
+    delay(n*1000); // wait for n seconds
+}
+
+void turnRight(n) {
+    // turn of left motor, and drive right motor forwards
+    // motor 1 - left
+    digitalWrite(motorPin1, LOW);
+    digitalWrite(motorPin2, LOW);
+    // motor 2 - right
+    digitalWrite(motorPin3, HIGH);
+    digitalWrite(motorPin4, LOW);
+    delay(n*1000); // wait for n seconds
+}
+
+void stop(n) {
+    // motor 1 - left
+    digitalWrite(motorPin1, LOW);
+    digitalWrite(motorPin2, LOW);
+    // motor 2 - right
+    digitalWrite(motorPin3, LOW);
+    digitalWrite(motorPin4, LOW);
+    delay(n*1000); // wait for n seconds
+}
+\end{lstlisting}
+
+\pagebreak
+\section{Challenges} \label{sec:challenges}
+
+These challenges can be done using only the knowledge and skills gained in this guide. 
+\begin{itemize}
+    \item Turn the robot around on the spot
+    \item Drive in a square
+\end{itemize}
+
+
+This challenges require knowledge that is not covered in this quide.
+\begin{itemize}
+    \item Make a line following robot (requires a light sensor)
+    \item Make a robot that bounces of walls or other objects in its way (requires an ultrasonic sensor)
+\end{itemize}
+Tinybot has been designed so that sensors and additional functionality can be easily added, adding components to a breadboard is fairly trivial. However, the programming aspect of these extra challenging challenges is quite involved.
 
 
 \end{document}

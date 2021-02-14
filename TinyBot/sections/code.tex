@@ -1,0 +1,113 @@
+\documentclass[../TinyBot.tex]{subfiles}
+\begin{document}
+
+\section{Code}
+
+
+
+
+
+Thinking back to the H-Bridge, to control the direction of the motor we want to control which switches are closed and which are open. Switches are generally active low - which means that they are off by default. To turn them on, in other words close them, we want to set pins to high. \\
+
+To make it easier on ourselves, let's assign the pin numbers for each switch to a variable. Let's put these at the very top of our script, so that every function we write later can access the variables. 
+
+\begin{lstlisting}
+//Motor 1
+const int motorPin1  = 6;  // Pin 15 of L293
+const int motorPin2  = 5;  // Pin 10 of L293
+//Motor 2
+const int motorPin3  = 9; // Pin  7 of L293
+const int motorPin4  = 8;  // Pin  2 of L293
+\end{lstlisting}
+
+The keyword \lstinline[]!const! means that the variable cannot be changed later in the code. 
+The value of the variables can be changed to any digital pin number on the Arduino, though make sure that the variable number matches the physical pin used. \\
+
+
+Next we need to set the pin mode of the pins we're using to interact with the H-Bridge.
+
+\begin{lstlisting}
+void setup(){
+    //Set pins as outputs
+    pinMode(motorPin1, OUTPUT);
+    pinMode(motorPin2, OUTPUT);
+    pinMode(motorPin3, OUTPUT);
+    pinMode(motorPin4, OUTPUT);
+}
+\end{lstlisting}
+
+
+To drive forward, we want the motors to turn in the same direction and so we want to enable \lstinline[]!IN1! and \lstinline[]!IN3!. 
+
+\begin{lstlisting}
+void setup() {
+    // set pinMode as done above
+
+    digitalWrite(motorPin1, HIGH);
+    digitalWrite(motorPin2, LOW);
+    digitalWrite(motorPin3, HIGH);
+    digitalWrite(motorPin4, LOW);
+    delay(2000); // wait for 2 seconds
+}
+\end{lstlisting}
+As this code is in \lstinline[]!setup()!, it will run once, i.e. the robot will drive forwards for 2 seconds, then stop. If you want the robot to drive forward continuously, then move the digital writes to \lstinline[]!loop()!. Make sure to put the robot on the floor so that it doesn't drive off the desk.
+
+
+
+As you can imagine, having to set all 4 motor pins individually when controlling the robot can get quite tedious. A simple solution to this is to create functions for driving in each direction. We're going to assume that the left motor is motor 1, and the right motor is motor 2.
+
+\begin{lstlisting}
+void driveForward(n) {
+    // motor 1 - left
+    digitalWrite(motorPin1, HIGH);
+    digitalWrite(motorPin2, LOW);
+    // motor 2 - right
+    digitalWrite(motorPin3, HIGH);
+    digitalWrite(motorPin4, LOW);
+    delay(n*1000); // wait for n seconds
+}
+
+void driveBackwards(n) {
+    // motor 1 - left
+    digitalWrite(motorPin1, LOW);
+    digitalWrite(motorPin2, HIGH);
+    // motor 2 - right
+    digitalWrite(motorPin3, LOW);
+    digitalWrite(motorPin4, HIGH);
+    delay(n*1000); // wait for n seconds
+}
+
+void turnLeft(n) {
+    // turn off right motor, and drive left motor forwards
+    // motor 1 - left
+    digitalWrite(motorPin1, HIGH);
+    digitalWrite(motorPin2, LOW);
+    // motor 2 - right
+    digitalWrite(motorPin3, LOW);
+    digitalWrite(motorPin4, LOW);
+    delay(n*1000); // wait for n seconds
+}
+
+void turnRight(n) {
+    // turn of left motor, and drive right motor forwards
+    // motor 1 - left
+    digitalWrite(motorPin1, LOW);
+    digitalWrite(motorPin2, LOW);
+    // motor 2 - right
+    digitalWrite(motorPin3, HIGH);
+    digitalWrite(motorPin4, LOW);
+    delay(n*1000); // wait for n seconds
+}
+
+void stop(n) {
+    // motor 1 - left
+    digitalWrite(motorPin1, LOW);
+    digitalWrite(motorPin2, LOW);
+    // motor 2 - right
+    digitalWrite(motorPin3, LOW);
+    digitalWrite(motorPin4, LOW);
+    delay(n*1000); // wait for n seconds
+}
+\end{lstlisting}
+
+\end{document}

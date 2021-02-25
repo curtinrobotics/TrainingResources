@@ -13,6 +13,21 @@ To program an Arduino, you will need a USB cable, and a laptop/computer with the
     \caption{The Arduino IDE}
 \end{figure}
 
+The two round buttons in the top right, the tick and the arrow, are the verify and upload buttons. Verify checks your code, making sure that the syntax (the structure of the code, think of it like a grammar checker) of your code is correct. Upload sends the code you've written to the Arduino board.  \\
+
+However, before you can upload your code there's some setup you need to do. First of all, you need to select the board by going into the Tools menu, as shown in the image below. 
+
+\begin{center}
+  \includegraphics[width=0.6\textwidth]{arduino_ide_select_board.jpg}
+  \captionof{figure}{Selecting Board}
+\end{center}
+
+Next, you need to select the USB port that the Arduino is connected to. This is also done through the Tools menu. 
+\begin{center}
+  
+\end{center}
+
+The next few paragraphs will explain what programming is, if you have programmed before feel free to skip past these paragraphs. 
 
 Arduino's are programmed in the programming language \lstinline[]!C++!; though there are a few differences. The below code section details a few features of coding.
 
@@ -39,12 +54,11 @@ void loop {
 
 \pagebreak
 A useful feature of the Arduino IDE is all the example code which is provided.
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{arduino_ide_blink_example.jpg}
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{arduino_ide_blink_example.jpg}
     \label{fig:ide-blink}
-    \caption{Arduino IDE Example Code}
-\end{figure}
+    \captionof{figure}{Arduino IDE Example Code}
+\end{center}
 
 The simplest Arduino example is the Blink code, which turns on and off an onboard LED.
 

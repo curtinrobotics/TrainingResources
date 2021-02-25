@@ -40,6 +40,7 @@ A basic motor-\textbf{driver} is a H-bridge. The simplest H-bridge is shown in t
     \end{circuitikz}
     % \captionof{figure}{}
 \end{center}
+\bigskip
 
 When switches $1$ and $3$ are closed, the current will flow through the motor making it turn anticlockwise.
 % in the motor will flow in one direction. 
@@ -72,6 +73,7 @@ When switches $1$ and $3$ are closed, the current will flow through the motor ma
         \centerarc[->](2,1)(135:225:0.7);
     \end{circuitikz}
 \end{center}
+\bigskip
 
 In the same vein, closing switches 2 and 4 will cause the motor to turn clockwise. 
 \begin{center}
@@ -104,6 +106,7 @@ In the same vein, closing switches 2 and 4 will cause the motor to turn clockwis
 
     \end{circuitikz}
 \end{center}
+\bigskip
 
 If pins 4 \& 3 or pins 1 \& 2 are closed at the same time, a short circuit will be formed and the H-bridge will break. \\
 
@@ -136,6 +139,7 @@ If pins 4 \& 3 or pins 1 \& 2 are closed at the same time, a short circuit will 
     
         \end{circuitikz}
     \end{center}
+\bigskip
 
 \end{minipage}
 \begin{minipage}{0.5\textwidth}\vspace{0pt}
@@ -200,39 +204,57 @@ While working on this guide, don't worry if your H-bridge stops working suddenly
 
 \end{minipage}
 
-
+\pagebreak
 \subsection{L293D H-Bridge IC}
 
-The information in this section is included for informations sake, you don't need to understand it to be able to build TinyBot; though it can be useful knowledge. You can skip this section if you would like. \\
+The information in this section is included for information's sake, you don't need to understand it to be able to build TinyBot; though it can be useful knowledge. You can skip this section if you would like. \\
 
 
 
 Datasheets hold a lot of useful information about microchips, the data sheet for the L293D H-Bridge can can be found online (linked \href{https://www.altronics.com.au/p/z2900-l293d-motor-drive-ic/}{here}).\\
 
-
-
-\begin{center}[h]
+% \begin{minipage}{\textwidth}
+    
+%     \begin{center}
+        
+%         \begin{minipage}{0.5\textwidth}\vspace{0pt}
+%             \includegraphics[width=\textwidth]{L293D-block-diagram.jpg}
+%             \captionof{subfigure}{Block Diagram for 20 Pin Chip}
+%             \label{fig:l293d-block-diagram}
+            
+%         \end{minipage}
+%         \begin{minipage}{0.2\textwidth}\vspace{0pt}
+            
+%         \end{minipage}
+%         \begin{minipage}{0.3\textwidth}\vspace{0pt}
+%             \centering
+%             \includegraphics[width=\textwidth]{L293D-pinout.jpg}
+%             \captionof{subfigure}{Pinout of 16 Pin Chip}
+%             \label{fig:l293d-pinout}
+%         \end{minipage}
+%         \captionof{figure}{Diagrams from the L293D datasheet}
+%         \label{fig:l293d}
+%     \end{center}
+% \end{minipage}
+\begin{figure}[h]
     \centering
-
-    \begin{minipage}{0.5\textwidth}\vspcae{0pt}
+    % \vspace{-1cm}
+    \begin{subfigure}{0.5\textwidth}
         \includegraphics[width=\textwidth]{L293D-block-diagram.jpg}
-        \captionof{subfigure}{Block Diagram for 20 Pin Chip}
+        \caption{Block Diagram for 20 Pin Chip}
         \label{fig:l293d-block-diagram}
-        
-    \end{minipage}
-    \begin{minipage}{0.2\textwidth}\vspcae{0pt}
-        
-    \end{minipage}
-    \begin{minipage}{0.3\textwidth}\vspcae{0pt}
-        \centering
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
         \includegraphics[width=\textwidth]{L293D-pinout.jpg}
-        \captionof{subfigure}{Pinout of 16 Pin Chip}
+        \caption{Pinout of 16 Pin Chip}
         \label{fig:l293d-pinout}
-    \end{minipage}
-    \captionof{figure}{Diagrams from the L293D datasheet}
+    \end{subfigure}
+    \caption{Diagrams from the L293D datasheet}
     \label{fig:l293d}
+
 \end{figure}
 
+\FloatBarrier
 
 
 Being able to read diagrams such as in Figure \ref{fig:l293d-block-diagram} really depends on whether or not you know what each symbol means. \\
@@ -242,34 +264,40 @@ Being able to read diagrams such as in Figure \ref{fig:l293d-block-diagram} real
 The hollow circles along the outside rectangle of the block diagram represent the pin outs on the microchip, they can be matched up with labelled pins in Figure \ref{fig:l293d-pinout}. There is also a 20 pin variant of this H-bridge, which is why some of the pin labels on the block diagram are greater than 16.\\
 
 
-The hollow triangles in the block diagram are buffers that isolate the the input signal from the enable line. 
+The hollow triangles in the block diagram are buffers that isolate the the input signal from the enable line. \\
 
 
 
-The bold black triangle and line combinations represent components called MOSFETs. They essentially work as electric switches, providing the right signal to the MOSFET will allow current to flow in much the same manner as pressing a push buttons allows current to flow.
+The bold black triangle and line combinations represent components called Transistors. 
 
-\begin{center}
+
+
+
+% MOSFETs. They essentially work as electric switches; providing the right signal to the MOSFET will allow current to flow in much the same manner as pressing a push buttons allows current to flow as shown in Figure \ref{fig:mosfet-conceptual}.
+
+% \begin{center}
     
-    \begin{tikzpicture}[scale=0.5]
-        \filldraw (0,3) circle (2pt) node[align=left, left] {\lstinline[]!ENABLE1!} -- (2,3);
-        \draw (2,4) -- (4,4);
-        \filldraw (3,5) circle (2pt) node[align=center, above] {\lstinline[]!IN1=LOW!}-- (3,4);
-        \filldraw (6,3) circle (2pt) node[align=right, right] {\lstinline[]!OUT1!} -- (4,3);
+%     \begin{tikzpicture}[scale=0.5]
+%         \filldraw (0,3) circle (2pt) node[align=left, left] {\lstinline[]!ENABLE1!} -- (2,3);
+%         \draw (2,4) -- (4,4);
+%         \filldraw (3,5) circle (2pt) node[align=center, above] {\lstinline[]!IN1=LOW!}-- (3,4);
+%         \filldraw (6,3) circle (2pt) node[align=right, right] {\lstinline[]!OUT1!} -- (4,3);
         
-        \filldraw (0,0) circle (2pt) node[left] {\lstinline[]!ENABLE1!} -- (6,0) circle (2pt) node[right] {\lstinline[]!OUT1!};
-        \filldraw (3,1) circle (2pt) node[above] {\lstinline[]!IN1=HIGH!} -- (3,0);
-    \end{tikzpicture}
-    \captionof{figure}{MOSFET}
-\end{center}
-A MOSFET is an advanced digital component, not discussed in University till about 3rd year engineering units. This information about MOSFETs is included for completeness, and to satisfy any curiosity. It is not important to understand MOSFETs at this level, though if you are curious the internet has many resources available for learning about electrical components in depth which act as the switches in the circuit. \\
+%         \filldraw (0,0) circle (2pt) node[left] {\lstinline[]!ENABLE1!} -- (6,0) circle (2pt) node[right] {\lstinline[]!OUT1!};
+%         \filldraw (3,1) circle (2pt) node[above] {\lstinline[]!IN1=HIGH!} -- (3,0);
+%     \end{tikzpicture}
+%     \captionof{figure}{MOSFET}
+%     \label{fig:mosfet-conceptual}
+% \end{center}
+% A MOSFET is an advanced digital component, not discussed in University till about 3rd year engineering units. This information about MOSFETs is included for completeness, and to satisfy any curiosity. It is not important to understand MOSFETs at this level, though if you are curious the internet has many resources available for learning about electrical components in depth which act as the switches in the circuit. \\
 
-% (depicted as the bold black triangle and lines, they are the "switches" in this H-Bridge). Basically, setting \lstinline[]!IN1=HIGH! when \lstinline[]!ENABLE1=HIGH! will close the switch and provide power to \lstinline[]!OUT1!. 
+% % (depicted as the bold black triangle and lines, they are the "switches" in this H-Bridge). Basically, setting \lstinline[]!IN1=HIGH! when \lstinline[]!ENABLE1=HIGH! will close the switch and provide power to \lstinline[]!OUT1!. 
 
-Using the buffer allows a low voltage signal, from the digital ports on the Arduino, to close the switch while using the higher voltage from \lstinline[]!ENABLE1! to flow through and power the motor. 
+% % Using the buffer allows a low voltage signal, from the digital ports on the Arduino, to close the switch while using the higher voltage from \lstinline[]!ENABLE1! to flow through and power the motor. 
 
-% It can be thought of as 
+% % % It can be thought of as 
 
-If \lstinline[]!ENABLE! has no power, then the motor will not turn; the voltage provided from the digital pins is not sufficient to drive the motor.  This is why in the wiring diagram (Figure \ref{fig:schematic-hbridge}) you'll notice that all 4 \lstinline[]!ENABLE! pins are all linked and permanently set to 9V (\lstinline[]!HIGH!) \\
+% % If \lstinline[]!ENABLE! has no power, then the motor will not turn; the voltage provided from the digital pins is not sufficient to drive the motor.  This is why in the wiring diagram (Figure \ref{fig:schematic-hbridge}) you'll notice that all 4 \lstinline[]!ENABLE! pins are all linked and permanently set to 9V (\lstinline[]!HIGH!) \\
 
 
 

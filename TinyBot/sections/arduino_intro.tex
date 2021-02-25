@@ -1,9 +1,48 @@
 \documentclass[../TinyBot.tex]{subfiles}
 \begin{document}
 
-\section{Intro To Programming Arduinos}
+\section{Intro to Programming}
 
-To program an Arduino, you will need a USB cable, and a laptop/computer with the \href{https://www.arduino.cc/en/software}{Arduino IDE} installed. 
+This section will briefly explain what programming is, if you have programmed before, or feel confident in your programming knowledge, feel free to skip to the \href{sec:introarduino}{next section}.
+
+If you have 0 programming experience, and are very confused by this section you may find it worthwhile to google programming guides and tutorials to really help you understand how to code and how code works. There are some links you may find useful at the end of this section. \\
+
+
+Programming is how we tell computers what we want them to do. We can program a computer to blink a light, play a noise every time something comes too close, or drive a robot around. The set of instructions we write is called code, and so programming is also called coding. 
+Like with spoken languages, there are many different programming languages. Popular languages include Java, C++, and Python. This guide will be introducing C++. \\
+
+Each coding language has a specific structure that must be followed, called syntax. For the computer to understand your code, it must conform to the expected syntax exactly. Syntax errors occur when there is a comma somewhere there shouldn't be, a word that is capitalised when it shouldn't be, there's an extra bracket, etc.
+
+The computer will tell you when there's a syntax error, and will often tell you what line the error is on. Sometimes this line number is a bit off, the syntax error might be a few lines above the specified line. When you first start coding, noticing where there is a syntax error is quite difficult; however as with many things, as you get more used to programming you get better at noticing where the syntax error is. \\
+
+
+A crucial part of programming is saving data, you want to be able to save and store some data that you can use later. This data is called a variable, and because computers require specific syntax, you need to tell the computer exactly what type of data the computer is being told to remember.\\
+
+Here we tell the computer to remember an \lstinline[]!int!eger variable called \lstinline[]!number1! which has the value 4.
+\begin{lstlisting}
+int number1 = 4;
+\end{lstlisting}
+
+The keyword \lstinline[]!int! is really important, it tells the computer that the variable \lstinline[]!number1! is an integer (a whole number, negative or positive). \\
+
+Some other basic keywords (known as datatypes) that can be used in place of \lstinline[]!int! are:
+\begin{itemize}[label={$\triangleright$}]
+  \item \lstinline[]!float! - a decimal number such as 0.5, 3.14159, etc. 
+  \item \lstinline[]!char! - a character, such as 'a' or '2' - note the single quotation marks which are important when declaring (creating) a character variable
+  \item \lstinline[]!string! - a word or lots of words e.g. "hello world" or "this is a string"; double quotation marks are essential for strings. 
+\end{itemize}
+
+These datatypes are a common concept across many languages, though some languages don't require you to explicitly state what datatype a variable is. \\
+
+Some more C++ resources:
+\begin{itemize}[label={$\triangleright$}]
+  \item \href{https://www.w3schools.com/cpp/default.asp}{https://www.w3schools.com/cpp/default.asp}
+  \item \href{https://www.learncpp.com/}{https://www.learncpp.com/}
+\end{itemize}
+
+\section{Intro To Arduinos} \label{sec:introarduino}
+
+To program an Arduino, you will need a USB cable, and a laptop/computer with the \href{https://www.arduino.cc/en/software}{Arduino IDE} installed, IDE stands for Integrated Development Environment. 
 
 
 
@@ -22,18 +61,28 @@ However, before you can upload your code there's some setup you need to do. Firs
   \captionof{figure}{Selecting Board}
 \end{center}
 
-Next, you need to select the USB port that the Arduino is connected to. This is also done through the Tools menu. 
+Next, you need to select the USB port that the Arduino is connected to. This is also done through the Tools menu. The port should appear as COM followed by a number. This number will change depending on which USB port the Arduino is plugged into. If the port option is greyed out for you, try plugging the Arduino into a different USB port. 
 \begin{center}
-  
+  \includegraphics[width=0.6\textwidth]{arduino_ide_select_port.jpg}
+  \captionof{figure}{Selecting Port}
 \end{center}
 
-The next few paragraphs will explain what programming is, if you have programmed before feel free to skip past these paragraphs. 
+\bigskip
+
+
+
+
+
+
+
+
+
 
 Arduino's are programmed in the programming language \lstinline[]!C++!; though there are a few differences. The below code section details a few features of coding.
 
 
 \begin{lstlisting}
-// this is a comment
+// this is a comment, comments are not read by the computer and can be anything you want
 
 // variables declared not in a function will be accessible
 // in all functions
@@ -41,7 +90,8 @@ int global_var = 0;
 
 void setup {
   // everything in this function will run once
-  // this code will run when the board is powered on, 
+
+  // this code will run when the board is powered on,
   // or when the reset button is pressed
 }
 

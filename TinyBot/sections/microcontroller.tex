@@ -10,9 +10,12 @@
 \end{wrapfigure}
 
 A microcontroller is a really small microcomputer on a very small chip, see Figure \ref{fig:microchip}.
-These are used in a variety of devices; including robots, vending machines, phones, computers, etc. \\
+These are used in a variety of devices, including robots, vending machines, phones, computers, etc. \\
 
-Arduino's are a development board; consisting of an microcontroller, power regulation, and input/output (also known as IO) pins. As microcontrollers are very tiny prototyping with them or using them to build something would be really difficult. The purpose of an arduino is to provide a medium that allows easy development with microcontrollers. There are many different kinds of arduinos, each using a different microchip. \\
+Arduino's are a development board: consisting of an microcontroller, power regulation, and input/output (also known as IO) pins.
+As microcontrollers are very tiny prototyping with them or using them to build something would be really difficult.
+The purpose of an Arduino is to provide a medium that allows easy development with microcontrollers.
+There are many different kinds of arduinos, each using a different microchip. \\
 
 \begin{wrapfigure}[10]{l}{0.35\textwidth}
     \centering
@@ -25,14 +28,18 @@ Arduino's are a development board; consisting of an microcontroller, power regul
 
 % The Arduino used in this project is the Arduino Uno, which has an ATMega328p microchip as shown in Figure \ref{fig:microchip}. 
 The difference between Arduino Uno, Mega, and Nano is the form factor and the microchip used on them. 
-Figure \ref{fig:arduino-real} is what a real Arduino Uno looks like, though the colour and text may be different from brand to brand. Genuine Arduinos are quite expensive, there are many clones available which are much cheaper. Figure \ref{fig:arduino-pinout} shows a stylised view of an Uno, labelling all the different pinouts. \\
+Figure \ref{fig:arduino-real} is what a real Arduino Uno looks like, though the colour and text may
+be different from brand to brand. Genuine Arduinos are quite expensive, there are many clones available which are much cheaper. Figure \ref{fig:arduino-pinout} shows a stylised view of an Uno, labelling all the different pinouts. \\
 
-Arduino's and other development boards are used extensively by hobbyists, they are cheap, easy to use, and extremely versatile. Arduino's are used in nearly every CRoC project, and can be used in countless DIY projects. \\
+Arduino's and other development boards are used extensively by hobbyists, they are cheap, easy to use, and extremely versatile.
+Arduino's are used in nearly every CRoC project, and can be used in countless DIY projects. \\
 
 
-An Uno has many different ports and pins. Figure \ref{fig:arduino-pinout} shows and labels all the different ports on a standard Uno. \\
+An Uno has many different ports and pins, as figure \ref{fig:arduino-pinout} shows.
 
-An important distinction to make is between the pins 5V, 3.3V, and VIN. VIN stands for voltage in; and this port is used to supply power to the arduino from batteries. Power can also be supplied through the barrel jack connection, see the black rectangle like block on figure \ref{fig:arduino-pinout}. 
+An important distinction to make is between the pins 5V, 3.3V, and VIN. VIN stands for ``voltage in'':
+this port is used to supply power to the Arduino, such as a battery. Power can also be supplied through the
+barrel jack connection: see the black rectangle like block on figure \ref{fig:arduino-pinout}. 
 
 The 5V and 3.3V  pins supply 5 volts or 3.3 volts respectively for powering other commponents, such as LEDs, ICs, or sensors.  \\
 
@@ -48,12 +55,17 @@ The 5V and 3.3V  pins supply 5 volts or 3.3 volts respectively for powering othe
 \end{center}
 
 
-There are two different kinds of pins on an arduino, digital and analog. Look at the legend to see which pins are digital, The digital pin numbers all start with \lstinline[]!D!, just as the analog pins start with \lstinline[]!A!.
+There are two different kinds of pins on an Arduino: digital and analog.
+The digital pin numbers all start with \lstinline[]!D!, just as the analog pins start with \lstinline[]!A!.
 % (notice the pins on the right of the diagram labelled \lstinline[]!D0! to \lstinline[]!D13!) 
 Analog pins can also be used as digital pins, but digital pins cannot be used as analog pins. \\
 
 
-Digital pins can be set to \lstinline[]!HIGH! or \lstinline[]!LOW!, think of it like a button it can be on or off. Setting a pin to \lstinline[]!HIGH! turns it on, and \lstinline[]!LOW! turns it off. As circuits get more complicated, it is possible that setting a pin to \lstinline[]!LOW! will enable a part of the circuit; though for beginners it is best to think of \lstinline[]!HIGH! as on and \lstinline[]!LOW! as off; especially when working with a H-Bridge. 
+Digital pins can be set to \lstinline[]!HIGH! or \lstinline[]!LOW!, think of it like a button it can be on or off.
+Setting a pin to \lstinline[]!HIGH! turns it on and \lstinline[]!LOW! turns it off. As circuits get more complicated,
+it is possible that setting a pin to \lstinline[]!LOW! will enable a part of the circuit,
+though for beginners it is best to think of \lstinline[]!HIGH! as on and \lstinline[]!LOW! as off,
+especially when working with a H-Bridge. 
 
 % \$TODO - ANALOG PINS
 

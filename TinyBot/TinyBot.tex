@@ -256,6 +256,7 @@
 
 There are many different components of a robot; the most important being the microcontroller (the brain), the motors (the legs), and any sensors (how the robot sees the world).
 
+
 This guide will take you through building a simple robot dubbed TinyBot. It has 2 wheels, a caster wheel, a battery, an arduino, and a breadboard.
 
 \section{Assumed Knowledge}
@@ -266,8 +267,8 @@ The below knowledge is assumed for this project. Feel free to ask other CRoC mem
 \begin{itemize}
     \item Basic circuit knowledge
     \begin{itemize}
-        \item Current, Voltage, Resistance
-        \item Series and Parallel
+        \item Current, voltage, and resistance
+        \item Series and parallel circuits
     \end{itemize}
     \item Breadboards
     \item Basic coding skills
@@ -278,18 +279,18 @@ The below knowledge is assumed for this project. Feel free to ask other CRoC mem
 \begin{tabularx}{\linewidth}{cccX}
     \toprule
     Component & Quantity & Price & Sources \\ \midrule
-    Arduino Uno & 1 & \$5-\$80 & Arduino's are discussed in Section \ref{sec:microcontroller}. A genuine Arduino will cost about \$80, however Arduino clones can be bought online for as little as \$5. Ebay is a good starting point for finding an Uno. \\
-    Breadboard & 1 & & \\
+    Arduino Uno & 1 & \$5-\$80 & Discussed further in \ref{sec:microcontroller}, a genuine Arduino will cost about \$80. Fortunately, Arduino clones can be bought online for as little as \$5. Ebay is a good starting point for finding an Uno. \\
+    Small breadboard & 1 & & \\
     N20 Motor & 2 & & \\
-    Dual H-Bridge & 1 & \$7 - \$16&   Altronics stocks both motor drivers and motor controllers, though they can also be found on eBay and sites such as RS components. For this tutorial, only a \href{https://www.altronics.com.au/p/z2900-l293d-motor-drive-ic/}{basic H-bridge driver} is necessary (costing about \$7), though more expensive motor controllers can be used as well.\\
+    Dual H-Bridge & 1 & \$7 - \$16&   Altronics stocks both motor drivers and motor controllers, though they can also be found on eBay and sites such as \href{https://au.rs-online.com/web/}{RS components}. For this tutorial, only a \href{https://www.altronics.com.au/p/z2900-l293d-motor-drive-ic/}{basic H-bridge driver} is necessary (about \$7).\\
     Wheels & 2& \$0 & The wheels for this project are 3D printed, and are supplied by the club. \\
-    Caster Wheel & 1 & ? & The caster wheel consists of 2 parts, a marble and it's 3D printed casing. The 3D print will be supplied by the club at no charge, however you must source your own marble.\\
+    Caster Wheel & 1 & ? & The caster wheel consists of 2 parts, a marble and it's 3D printed casing. The 3D print will be supplied by the club at no charge; however, you must source your own marble.\\
     \bottomrule
 \end{tabularx}
 
 \bigskip
 
-Additional sensors can be bought and integrated with TinyBot, however that is not covered in this project guide. 
+While additional sensors can be bought and integrated with TinyBot, this is not necessary for this tutorial.
 
 \subfile{sections/construction.tex}
 
@@ -326,10 +327,11 @@ These challenges can be done using only the knowledge and skills gained in this 
 
 These challenges require knowledge that is not covered in this guide.
 \begin{itemize}
-    \item Make a line following robot (requires a light sensor)
-    \item Make a robot that bounces of walls or other objects in its way (requires an ultrasonic sensor)
+    \item Allow the robot to move at different speeds (HINT: research the function !analogWrite()!)
+    \item Make a line following robot (HINT: requires a light sensor)
+    \item Make a robot that bounces of walls or other objects in its way (HINT: requires an ultrasonic sensor)
 \end{itemize}
-Tinybot has been designed so that sensors and additional functionality can be easily added, adding components to a breadboard is fairly trivial. However, the programming aspect of these extra challenging challenges is quite involved.
 
+Tinybot has been designed so that sensors and additional functionality can be easily added, adding components to a breadboard is fairly trivial. However, the programming aspect of these extra challenging challenges is quite involved.
 
 \end{document}

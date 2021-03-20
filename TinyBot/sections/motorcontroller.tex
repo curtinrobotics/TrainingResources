@@ -3,23 +3,30 @@
     
 \section{Motor Controller} \label{sec:motorcontroller}
 
-The motors used in this guide, the N20 motors, have a stall current of 1.6A (see section \ref{sec:motor} for what stall current means). The digital pins on an Arduino Uno supply at most 40mA. This is not enough to power the motors.\\ 
+The motors used in this guide, the N20 motors, have a stall current of 1.6A (see section
+\ref{sec:motor} for what stall current means). The digital pins on an Arduino Uno supply at most 40 mA.
+Clearly, this is not enough to power the motors.\\ 
 
-To get around this, the Arduino instead interfaces with a \textbf{motor controller}. Motor controllers have a separate power supply that can supply enough current to drive the motor. Motor controllers also have digital inputs that allow control of the motor. \\
+To get around this, the Arduino instead interfaces with a \textbf{motor controller}. Motor
+controllers have a separate power supply that can supply enough current to drive the motor.
+Motor controllers also have digital inputs that allow control of the motor. \\
 
-
-An added benefit of using a motor controller is that it is possible to control the direction and the speed of the motor. 
+An added benefit of using a motor controller is that it is possible to control the direction
+and the speed of the motor. 
 
 \bigskip
 
-The phrase motor controller is often used as a generic term for any device, circuit, or IC which controls a motor. However, motor controllers are a circuit that consists of a motor driver and some digital harness that acts as an interface to the driver. Motor controllers can be dropped into a circuit and easily controlled, allowing feedback from the motor and more control than a simple driver provides. \\
-
+The phrase motor controller is often used as a generic term for any device, circuit,
+or IC which controls a motor. However, motor controllers are a circuit that consists of a motor
+driver and some digital harness that acts as an interface to the driver. Motor controllers can
+be dropped into a circuit and easily controlled, allowing feedback from the motor and more control
+than a simple driver provides. \\
 
 % An example of a motor driver versus a motor controller is the \href{https://www.altronics.com.au/p/z2900-l293d-motor-drive-ic/}{L293D} motor driver versus the \href{https://www.altronics.com.au/p/z6442-l298n-dual-h-bridge-motor-module-for-arduino/}{L298N}. 
 
-
 \subsection{Motor Driver}
-A basic motor-\textbf{driver} is a H-bridge. The simplest H-bridge is shown in the below schematics, as well as an explanation of how using a H-bridge allows control over the motors direction. 
+A basic motor-\textbf{driver} is a H-bridge. The simplest H-bridge is shown in the below schematics,
+as well as an explanation of how using a H-bridge allows control over the motors direction. 
 
 \begin{center}
     \begin{circuitikz}
@@ -42,7 +49,8 @@ A basic motor-\textbf{driver} is a H-bridge. The simplest H-bridge is shown in t
 \end{center}
 \bigskip
 
-When switches $1$ and $3$ are closed, the current will flow through the motor making it turn anticlockwise.
+When switches $1$ and $3$ are closed, the current will flow through the motor making it turn
+anticlockwise.
 % in the motor will flow in one direction. 
 
 \begin{center}
@@ -108,7 +116,8 @@ In the same vein, closing switches 2 and 4 will cause the motor to turn clockwis
 \end{center}
 \bigskip
 
-If pins 4 \& 3 or pins 1 \& 2 are closed at the same time, a short circuit will be formed and the H-bridge will break. \\
+If pins 4 and 3 or pins 1 and 2 are closed at the same time, a short circuit will be formed and the
+H-bridge will break. \\
 
 \begin{minipage}{0.5\textwidth}\vspace{0pt}
     \begin{center}
@@ -175,43 +184,46 @@ If pins 4 \& 3 or pins 1 \& 2 are closed at the same time, a short circuit will 
 
 \bigskip \bigskip
 
-Breaking a H-bridge is fairly common, especially the cheaper low power ones. Some higher end H-bridges are designed to prevent the H-bridge from shorting if the wrong pins are closed. 
-Most motor-controllers will have this protection built-in, though most motor-drivers do not.
+Breaking a H-bridge is fairly common, especially the cheaper low power ones. Some higher end
+H-bridges are designed to prevent the H-bridge from shorting if the wrong pins are closed. 
+Most motor-controllers will have this protection built-in, though most motor-drivers do not. \\
 
 
-While working on this guide, don't worry if your H-bridge stops working suddenly, it is quite common to short them out. 
+While working on this guide, don't worry if your H-bridge stops working suddenly, it is
+quite common to short them out. 
 
 \bigskip
 
-
 % In the case of the H-bridge, the voltage supplied (from the left on the diagrams displayed above) is a high enough voltage, with a high enough current, to drive the motor. The switches (1, 2, 3, 4) are, in their simplest form, a button that is closed upon a signal from the microcontroller. Switches require a very small amount of power to close, and so can be controlled directly from the motor controller. 
-
-
 
 \subsection{Motor Controller}
 % https://www.robotshop.com/en/roboclaw-2x30a-6-34vdc-regenerative-motor-controller.html
 
 \begin{minipage}{0.3\textwidth}\vspace{0pt}
+    \centering
     \includegraphics[width=\textwidth]{roboclaw.jpg}
     \captionof{figure}{\href{https://www.robotshop.com/media/files/content/b/bat/pdf/roboclaw_datasheet_2x30a-2.pdf}{RoboClaw Motor Controller}}
     \label{fig:roboclaw}
 \end{minipage}
-\begin{minipage}{0.7\textwidth}\vspace{0pt}
-    A motor controller has a lot more features than a motor driver. See, for example, the RoboClaw  (see Figure \ref{fig:roboclaw}) which has in built features such as PID tuning, data logging, diagnostic LEDs, and serial control. \\
-    
-    
-    The in-built control modes, as well as being capable of serial communication, is present only in motor controllers. Motor drivers are far simpler in comparison. \\
 
+\begin{minipage}{0.7\textwidth}\vspace{0pt}
+    A motor controller has a lot more features than a motor driver. See, for example, the RoboClaw
+    (see Figure \ref{fig:roboclaw}) which has in built features such as PID tuning, data logging,
+    diagnostic LEDs, and serial control. \\
+    
+    The in-built control modes, as well as being capable of serial communication, is present only
+    in motor controllers. Motor drivers are far simpler in comparison. \\
 \end{minipage}
 
 \pagebreak
 \subsection{L293D H-Bridge IC}
 
-The information in this section is included for information's sake, you don't need to understand it to be able to build TinyBot; though it can be useful knowledge. You can skip this section if you would like. \\
+The information in this section is included for information's sake, you don't need to
+understand it to be able to build TinyBot, though it can be useful knowledge.
+You can skip this section if you would like. \\
 
-
-
-Datasheets hold a lot of useful information about microchips, the data sheet for the L293D H-Bridge can can be found online (linked \href{https://www.altronics.com.au/p/z2900-l293d-motor-drive-ic/}{here}).\\
+Datasheets hold a lot of useful information about microchips, the data sheet for the L293D
+H-Bridge can can be found \href{https://www.altronics.com.au/p/z2900-l293d-motor-drive-ic/}{online}.
 
 
 
@@ -260,21 +272,20 @@ Datasheets hold a lot of useful information about microchips, the data sheet for
 \FloatBarrier
 
 
-Being able to read diagrams such as in Figure \ref{fig:l293d-block-diagram} really depends on whether or not you know what each symbol means. \\
+Being able to read diagrams such as in Figure \ref{fig:l293d-block-diagram} really depends
+on whether or not you know what each symbol means. \\
 
 % Block diagrams such as in Figure \ref{fig:l293d-block-diagram} can be quite confusing to read; there's a lot of symbols that you may or may not know. 
 
-The hollow circles along the outside rectangle of the block diagram represent the pin outs on the microchip, they can be matched up with labelled pins in Figure \ref{fig:l293d-pinout}. There is also a 20 pin variant of this H-bridge, which is why some of the pin labels on the block diagram are greater than 16.\\
+The hollow circles along the outside rectangle of the block diagram represent the pin outs
+on the microchip, they can be matched up with labelled pins in Figure \ref{fig:l293d-pinout}.
+There is also a 20 pin variant of this H-bridge, which is why some of the pin labels on the
+block diagram are greater than 16.\\
 
-
-The hollow triangles in the block diagram are buffers that isolate the the input signal from the enable line. \\
-
-
+The hollow triangles in the block diagram are buffers that isolate the the input signal from
+the enable line. \\
 
 The bold black triangle and line combinations represent components called Transistors. 
-
-
-
 
 % MOSFETs. They essentially work as electric switches; providing the right signal to the MOSFET will allow current to flow in much the same manner as pressing a push buttons allows current to flow as shown in Figure \ref{fig:mosfet-conceptual}.
 
@@ -301,9 +312,5 @@ The bold black triangle and line combinations represent components called Transi
 % % % It can be thought of as 
 
 % % If \lstinline[]!ENABLE! has no power, then the motor will not turn; the voltage provided from the digital pins is not sufficient to drive the motor.  This is why in the wiring diagram (Figure \ref{fig:schematic-hbridge}) you'll notice that all 4 \lstinline[]!ENABLE! pins are all linked and permanently set to 9V (\lstinline[]!HIGH!) \\
-
-
-
-
 
 \end{document}

@@ -44,10 +44,10 @@
 \hypersetup{colorlinks=true, linkcolor=blue!50!red, urlcolor=green!70!black}
 
 % defining a warning box
-\definecolor{orang}{RGB}{255,155,0}
+\definecolor{orange}{RGB}{255,155,0}
 
 \newtcolorbox[auto counter,number within=section]{warningbox}[1][]{
-  enhanced jigsaw,colback=white,colframe=orang,coltitle=orang,
+  enhanced jigsaw,colback=white,colframe=orange,coltitle=orange,
   fonttitle=\bfseries\sffamily,
   sharp corners,
   detach title,
@@ -254,10 +254,11 @@
 
 \section{Introduction}
 
-There are many different components of a robot; the most important being the microcontroller (the brain), the motors (the legs), and any sensors (how the robot sees the world).
+There are many different components of a robot: the most important being the microcontroller (the
+brain and nervous system), the motors (the legs), and any sensors (how the robot sees the world). \\
 
-
-This guide will take you through building a simple robot dubbed TinyBot. It has 2 wheels, a caster wheel, a battery, an arduino, and a breadboard.
+This guide will take you through building a simple robot dubbed TinyBot. It has two wheels, a caster
+wheel, a battery, an Arduino, and a breadboard.
 
 \section{Assumed Knowledge}
 
@@ -292,8 +293,6 @@ The below knowledge is assumed for this project. Feel free to ask other CRoC mem
 
 While additional sensors can be bought and integrated with TinyBot, this is not necessary for this tutorial.
 
-\subfile{sections/construction.tex}
-
 \pagebreak
 \subfile{sections/microcontroller.tex}
 
@@ -327,11 +326,15 @@ These challenges can be done using only the knowledge and skills gained in this 
 
 These challenges require knowledge that is not covered in this guide.
 \begin{itemize}
-    \item Allow the robot to move at different speeds (HINT: research the function !analogWrite()!)
+    \item Allow the robot to move at different speeds (HINT: research the function
+    \lstinline[]!analogWrite()!)
     \item Make a line following robot (HINT: requires a light sensor)
-    \item Make a robot that bounces of walls or other objects in its way (HINT: requires an ultrasonic sensor)
+    \item Make a robot that bounces of walls or other objects in its way
+    (HINT: requires an ultrasonic sensor)
 \end{itemize}
 
-Tinybot has been designed so that sensors and additional functionality can be easily added, adding components to a breadboard is fairly trivial. However, the programming aspect of these extra challenging challenges is quite involved.
+TinyBot has been designed so that sensors and additional functionality can be easily added,
+adding components to a breadboard is fairly trivial. However, the programming aspect of these
+extra challenging challenges is quite involved.
 
 \end{document}

@@ -1,0 +1,15 @@
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {section}{\numberline {2}Assumed Knowledge}{1}{section.2}%
+\contentsline {section}{\numberline {3}Components}{1}{section.3}%
+\contentsline {section}{\numberline {4}Construction}{1}{section.4}%
+\contentsline {section}{\numberline {5}Microcontroller}{2}{section.5}%
+\contentsline {section}{\numberline {6}Motor}{4}{section.6}%
+\contentsline {section}{\numberline {7}Motor Controller}{6}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Motor Driver}{6}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Motor Controller}{7}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}L293D H-Bridge IC}{8}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Intro to Programming}{9}{section.8}%
+\contentsline {section}{\numberline {9}Intro To Arduinos}{10}{section.9}%
+\contentsline {section}{\numberline {10}Wiring}{13}{section.10}%
+\contentsline {section}{\numberline {11}Code}{15}{section.11}%
+\contentsline {section}{\numberline {12}Challenges}{17}{section.12}%

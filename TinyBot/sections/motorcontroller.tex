@@ -3,11 +3,11 @@
     
 \section{Motor Controller} \label{sec:motorcontroller}
 
-The motors used in this guide, the N20 motors, have a stall current of 1.6A (see section
-\ref{sec:motor} for what stall current means). The digital pins on an Arduino Uno supply at most 40 mA.
-Clearly, this is not enough to power the motors.\\ 
+The motors used in this guide, the N20 motors, have a stall current of 1.6 A (see section
+\ref{sec:motor} for what stall current means). The digital pins on an Arduino Uno can supply
+at most 20 mA without breaking. Clearly, this is not enough to power the motors.\\ 
 
-To get around this, the Arduino instead interfaces with a \textbf{motor controller}. Motor
+To get around this, the Arduino instead interfaces with a ``motor controller''. Motor
 controllers have a separate power supply that can supply enough current to drive the motor.
 Motor controllers also have digital inputs that allow control of the motor. \\
 
@@ -285,7 +285,10 @@ block diagram are greater than 16.\\
 The hollow triangles in the block diagram are buffers that isolate the the input signal from
 the enable line. \\
 
-The bold black triangle and line combinations represent components called Transistors. 
+The bold black triangle and line combinations represent components called Transistors. These
+components essentailly act as digital switches, allowing a large current to be activated
+by sending a small current to the base. Hence, the Arduino can turn on the power to the
+motors without drwaing too much current. \\
 
 % MOSFETs. They essentially work as electric switches; providing the right signal to the MOSFET will allow current to flow in much the same manner as pressing a push buttons allows current to flow as shown in Figure \ref{fig:mosfet-conceptual}.
 

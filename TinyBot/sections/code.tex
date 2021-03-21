@@ -34,11 +34,11 @@ void setup(){
     pinMode(MOTOR_PIN_2, OUTPUT);
     pinMode(MOTOR_PIN_3, OUTPUT);
     pinMode(MOTOR_PIN_4, OUTPUT);
-}
+} \\
 \end{lstlisting}
 
-
-To drive forward, we want the motors to turn in the same direction and so we want to enable \lstinline[]!IN1! and \lstinline[]!IN3!. 
+To drive forward, we want the motors to turn in the same direction and so we want to
+enable \lstinline[]!IN1! and \lstinline[]!IN3!. \\
 
 \begin{lstlisting}
 void setup() {
@@ -63,7 +63,7 @@ doesn't drive off the desk. \\
 As you can imagine, having to set all 4 motor pins individually when controlling the robot
 can get quite tedious. A simple solution to this is to create functions for driving in
 each direction. We're going to assume that the left motor is motor 1, and the right motor is
-motor 2.
+motor 2. \\
 
 \begin{lstlisting}
 void driveForward() {

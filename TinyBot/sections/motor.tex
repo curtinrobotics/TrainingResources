@@ -21,19 +21,19 @@ This \href{https://www.explainthatstuff.com/electricmotors.html}{link} has a goo
 
 \subsection{Gear Boxes}
 
-\begin{minipage}[t]{0.6\textwidth}\vspace{0pt}
+Sometimes, we want the motor to output a torque higher than what is can provide.
+Ideally, the motor should be able to output high torques without high currents,
+as the higher the current is the more heat is generated and the more power
+hungry the system is. This can be accomplished with a gearbox. \\
 
-    Sometimes, we want the motor to output a torque higher than what is can provide.
-    Ideally, the motor should be able to output high torques without high currents,
-    as the higher the current is the more heat is generated and the more power
-    hungry the system is. This can be accomplished with a gearbox.
+\begin{minipage}[t]{0.6\textwidth}\vspace{0pt}
 
     Gearboxes can increase torque in exchange for speed or vice-versa. Gearboxes have
     a property called ``gear ratio'' which dictates this change in torque and speed.
     By counting the number of teeth of both the driven and driving gears, the output
     speed and torque can be calculated as below. Notice that $\omega$ is the angular
     speed, $D$ is the diameter, $N$ is the number of teeth, $\tau$ is the torque, and
-    $\eta$ is the efficieny (typically ~95\% for a pair of spur gears). Hence, when
+    $\eta$ is the efficieny (typically $\sim$95\% for a pair of spur gears). Hence, when
     the output gear has more teeth, the torque increases and the speed decreases,
     and vice-versa. Also notice that the driving gear will rotate in the opposite
     direction as the driven gear. \\
@@ -46,7 +46,6 @@ This \href{https://www.explainthatstuff.com/electricmotors.html}{link} has a goo
         \label{fig:gear-driver-driven}
     \end{center}
 \end{minipage}
-
 
 \[ R = \frac{N_B}{N_A} = \frac{D_B}{D_A} = \frac{\omega_A}{\omega_B} \]
 

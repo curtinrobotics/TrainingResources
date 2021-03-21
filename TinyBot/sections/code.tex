@@ -3,16 +3,12 @@
 
 \section{Code}
 
-
-
-
-
 Thinking back to the H-Bridge, to control the direction of the motor we want to control which
 switches are closed and which are open. Switches are generally active low - which means that 
 they are off by default. To turn them on, or ``close them'', we want to set pins to high. \\
 
 To make it easier on ourselves, let's name these switchs as constants. Let's put these
-at the very top of our script so that every function we write later can access the variables. 
+at the very top of our script so that every function we write later can access these constants. \\
 
 \begin{lstlisting}
 //Motor 1
@@ -25,10 +21,9 @@ at the very top of our script so that every function we write later can access t
 
 The keyword \lstinline[]!#define! means that the value cannot be changed later in the code.
 Annoyingly, when we define constants like this, we have to omit the equals symbol and
-semi-colon.\footnote{Research the C++ preprocessor in your spare time to finc out why}
-The value of the constants can be changed to any digital pin number on the Arduino,
-though make sure that the value matches the physical pin used. \\
-
+semi-colon.\footnote{Research the \lstinline[]!C++! preprocessor in your spare time to
+finc out why} The value of the constants can be changed to any digital pin number on the
+Arduino, though make sure that the value matches the physical pin used. \\
 
 Next we need to set the pin mode of the pins we're using to interact with the H-Bridge.
 
@@ -54,36 +49,42 @@ void setup() {
     digitalWrite(MOTOR_PIN_3, HIGH);
     digitalWrite(MOTOR_PIN_4, LOW);
     delay(2000); // wait for 2 seconds
+
+    // Turn motors off
+    digitalWrite(MOTOR_PIN_1, LOW);
+    digitalWrite(MOTOR_PIN_3, LOW);
 }
 \end{lstlisting}
-As this code is in \lstinline[]!setup()!, it will run once, i.e. the robot will drive forwards for 2 seconds, then stop. If you want the robot to drive forward continuously, then move the digital writes to \lstinline[]!loop()!. Make sure to put the robot on the floor so that it doesn't drive off the desk.
+As this code is in \lstinline[]!setup()!, it will run once, i.e. the robot will drive forwards
+for 2 seconds, then stop. If you want the robot to drive forward continuously, then move the
+digital writes to \lstinline[]!loop()!. Make sure to put the robot on the floor so that it
+doesn't drive off the desk. \\
 
-
-
-As you can imagine, having to set all 4 motor pins individually when controlling the robot can get quite tedious. A simple solution to this is to create functions for driving in each direction. We're going to assume that the left motor is motor 1, and the right motor is motor 2.
+As you can imagine, having to set all 4 motor pins individually when controlling the robot
+can get quite tedious. A simple solution to this is to create functions for driving in
+each direction. We're going to assume that the left motor is motor 1, and the right motor is
+motor 2.
 
 \begin{lstlisting}
-void driveForward(int secs) {
+void driveForward() {
     // motor 1 - left
     digitalWrite(MOTOR_PIN_1, HIGH);
     digitalWrite(MOTOR_PIN_2, LOW);
     // motor 2 - right
     digitalWrite(MOTOR_PIN_3, HIGH);
     digitalWrite(MOTOR_PIN_4, LOW);
-    delay(secs * 1000); // wait for n seconds
 }
 
-void driveBackwards(int secs) {
+void driveBackwards() {
     // motor 1 - left
     digitalWrite(MOTOR_PIN_1, LOW);
     digitalWrite(MOTOR_PIN_2, HIGH);
     // motor 2 - right
     digitalWrite(MOTOR_PIN_3, LOW);
     digitalWrite(MOTOR_PIN_4, HIGH);
-    delay(secs * 1000); // delay() expects time in ms
 }
 
-void turnLeft(int secs) {
+void turnLeft() {
     // turn off right motor, and drive left motor forwards
     // motor 1 - left
     digitalWrite(MOTOR_PIN_1, HIGH);
@@ -91,10 +92,9 @@ void turnLeft(int secs) {
     // motor 2 - right
     digitalWrite(MOTOR_PIN_3, LOW);
     digitalWrite(MOTOR_PIN_4, LOW);
-    delay(seccs * 1000); // wait for n seconds
 }
 
-void turnRight(int secs) {
+void turnRight() {
     // turn of left motor, and drive right motor forwards
     // motor 1 - left
     digitalWrite(MOTOR_PIN_1, LOW);
@@ -102,17 +102,15 @@ void turnRight(int secs) {
     // motor 2 - right
     digitalWrite(MOTOR_PIN_3, HIGH);
     digitalWrite(MOTOR_PIN_4, LOW);
-    delay(secs * 1000); // wait for n seconds
 }
 
-void stop(int n) {
+void stop() {
     // motor 1 - left
     digitalWrite(MOTOR_PIN_1, LOW);
     digitalWrite(MOTOR_PIN_2, LOW);
     // motor 2 - right
     digitalWrite(MOTOR_PIN_3, LOW);
     digitalWrite(MOTOR_PIN_4, LOW);
-    delay(secs * 1000); // wait for n seconds
 }
 \end{lstlisting}
 

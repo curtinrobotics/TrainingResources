@@ -5,18 +5,15 @@
 
 This section will briefly explain what programming is. If you have programmed before, or feel
 confident in your programming knowledge, feel free to skip to the \href{sec:introarduino}{next section}.
-
-
 If you have 0 programming experience and are very confused by this section you may find it
 worthwhile to google programming guides and tutorials to really help you understand how to
 code and how the code works. There are some links you may find useful at the end of this section. \\
 
-
 Programming is how we tell computers what we want them to do. We can program a computer to blink a
 light, play a noise every time something comes too close, or drive a robot around. The set of
 instructions we write is called code, hence why programming is also called coding. Like with spoken
-languages, there are many different programming languages. Popular languages include Java, C++,
-and Python. This guide will be introducing the Arduino implementation of C++. \\
+languages, there are many different programming languages. Popular languages include Java, \lstinline[]!C++!,
+and Python. This guide will be introducing the Arduino implementation of \lstinline[]!C++!. \\
 
 Each coding language has a set of keywords and special characters that must be used, called ``syntax''.
 For the computer to understand your code, it must conform to the expected syntax exactly.
@@ -30,7 +27,7 @@ noticing where there is a syntax error is quite difficult; however, as with many
 as you get more used to programming you get better at noticing and guessing where a syntax error is. \\ 
 
 A crucial part of programming is saving data so it can be used later. Variables are the simplest way
-of saving data. Since C++ is a strong typed language, you need to tell the computer exactly what type
+of saving data. Since \lstinline[]!C++! is a strong typed language, you need to tell the computer exactly what type
 of data the computer is being told to remember.\\
 
 Here we tell the computer to remember an \lstinline[]!int!eger variable called \lstinline[]!number1!
@@ -74,11 +71,13 @@ The two round buttons in the top right, the tick and the arrow, are the verify a
 Verify checks your code, making sure that the syntax (think of it like a grammar checker) of
 your code is correct. Upload sends the code you've written to the Arduino board, if it can be verified.  \\
 
-However, before you can upload your code you need to select the Arduino board being used, as shown below.
+However, before you can upload your code you need to select the Arduino board being used, as shown in figure
+\ref{fig:board-select}.
 
 \begin{center}
   \includegraphics[width=0.6\textwidth]{arduino_ide_select_board.jpg}
   \captionof{figure}{Selecting the Board}
+  \label{fig:board-select}
 \end{center}
 
 Next, you need to select the USB port that the Arduino is connected to. This is also done
@@ -92,6 +91,7 @@ greyed out for you, try plugging the Arduino into a different USB port.
 \end{center}
 
 \bigskip
+\newpage
 
 Arduino's are programmed in the programming language \lstinline[]!C++!, though there
 are a few differences. The below code section details a few features of coding.

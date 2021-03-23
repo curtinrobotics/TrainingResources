@@ -48,7 +48,7 @@ To program an Arduino, you will need a USB cable, and a laptop/computer with the
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{arduino_ide.jpg}
+    \includegraphics[width=0.6\textwidth]{arduino_ide.jpg}
     \caption{The Arduino IDE}
 \end{figure}
 
@@ -61,22 +61,24 @@ However, before you can upload your code there's some setup you need to do. Firs
   \captionof{figure}{Selecting Board}
 \end{center}
 
-Next, you need to select the USB port that the Arduino is connected to. This is also done through the Tools menu. The port should appear as COM followed by a number. This number will change depending on which USB port the Arduino is plugged into. If the port option is greyed out for you, try plugging the Arduino into a different USB port. 
+Next, you need to select the USB port that the Arduino is connected to. This is also done through the Tools menu. The port should appear as COM followed by a number. This number will change depending on which USB port the Arduino is plugged into. 
+
 \begin{center}
   \includegraphics[width=0.6\textwidth]{arduino_ide_select_port.jpg}
   \captionof{figure}{Selecting Port}
 \end{center}
 
+\begin{warningbox}
+  If you cannot select the port because it is greyed out try plugging the Arduino into a different USB port. If this doesn't work, try unplugging and plugging in the Arduino end of the USB cable. \\
+
+  If you still cannot select a port, it may be an issue with the cable or with the Arduino. Use a different cable, or borrow someone else's Arduino to test if they are the issue. \\
+
+  If you still cannot select the port, even after trying different USB ports, cables, and Arduinos; the issue is likely with your computer, reinstalling the Arduino IDE may help. 
+  
+\end{warningbox}
+
+
 \bigskip
-
-
-
-
-
-
-
-
-
 
 Arduino's are programmed in the programming language \lstinline[]!C++!; though there are a few differences. The below code section details a few features of coding.
 
@@ -102,7 +104,7 @@ void loop {
 \end{lstlisting}
 \bigskip
 
-\pagebreak
+% \pagebreak
 A useful feature of the Arduino IDE is all the example code which is provided.
 \begin{center}
     \includegraphics[width=0.7\textwidth]{arduino_ide_blink_example.jpg}
@@ -139,6 +141,8 @@ There are a few common aspects present in the code of nearly every Arduino proje
 \lstinline[]!pinMode(<pin number>, <mode>)! sets a digital pin on the Arduino to be either an \lstinline[]!INPUT! or and \lstinline[]!OUTPUT!. \\
 
 
-\lstinline[]!digitalWrite()! is used to set digital pins \lstinline[]!HIGH! and \lstinline[]!LOW!.
+\lstinline[]!digitalWrite()! is used to set digital pins \lstinline[]!HIGH! and \lstinline[]!LOW!. High can be thought of as turning on something and low is turning off something just like with the LED in the above example. 
+
+Sometimes this will change, it depends on whether the component is active high (normally low, make it high to turn it on) or active low (normally high, make it low to turn it on).
 
 \end{document}

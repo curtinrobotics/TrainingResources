@@ -266,19 +266,30 @@ The below knowledge is assumed for this project. Feel free to ask other CRoC mem
     \item Basic coding skills
 \end{itemize}
 
+\pagebreak
 \section{Components}\label{sec:components}
  
-\begin{tabularx}{\linewidth}{cccX}
+The below list of components and their respective prices is only important if you wish to purchase them yourself and keep the components and the TinyBot you build. 
+
+If you choose to use the clubs components, they must all be returned after you finish this guide. \\
+
+
+\begin{tabular}{p{0.15\textwidth} p{0.1\textwidth} p{0.1\textwidth} p{0.55\textwidth}}
     \toprule
     Component & Quantity & Price & Sources \\ \midrule
-    Arduino Uno & 1 & \$5-\$80 & Arduino's are discussed in Section \ref{sec:microcontroller}. A genuine Arduino will cost about \$80, however Arduino clones can be bought online for as little as \$5. Ebay is a good starting point for finding an Uno. \\
-    Breadboard & 1 & & \\
-    N20 Motor & 2 & & \\
-    Dual H-Bridge & 1 & \$7 - \$16&   Altronics stocks both motor drivers and motor controllers, though they can also be found on eBay and sites such as RS components. For this tutorial, only a \href{https://www.altronics.com.au/p/z2900-l293d-motor-drive-ic/}{basic H-bridge driver} is necessary (costing about \$7), though more expensive motor controllers can be used as well.\\
-    Wheels & 2& \$0 & The wheels for this project are 3D printed, and are supplied by the club. \\
-    Caster Wheel & 1 & ? & The caster wheel consists of 2 parts, a marble and it's 3D printed casing. The 3D print will be supplied by the club at no charge, however you must source your own marble.\\
+    Arduino Uno & 1 & \$5-\$80 & Arduino's are discussed in Section \ref{sec:microcontroller}. A genuine Arduino will cost about \$80, however Arduino clones can be bought online for as little as \$5. Ebay is a good starting point for finding an Uno. \\[2cm]
+    Breadboard & 1 & ~\$8& Altronics sells breadboards at about \$7 each, which is about the same price as you'll find on eBay. Ali Express has them much cheaper but shipping can take quite a while. \\[2cm]
+    N20 Motor & 2 & \$5 - \$20 & There are 3 ways to source these motors: \begin{itemize}
+      \item From AliExpress, eBay, or other online stores
+      \item From Altronics/Jaycar - though they are significantly more expensive sourced this way
+      \item Provided by the club
+    \end{itemize} \\[2cm]
+    L293D Dual H-Bridge & 1 & \$7 - \$16&   Altronics stocks both motor drivers and motor controllers, though they can also be found on eBay and sites such as RS components. For this tutorial, only a \href{https://www.altronics.com.au/p/z2900-l293d-motor-drive-ic/}{basic H-bridge driver} is necessary (costing about \$7), though more expensive motor controllers can be used as well. \\[3cm]
+
+    Wheels & 2& \$0 & The wheels for this project are 3D printed. The STL files are provided in this repository if you wish to print them, though the club has printed some copies that you can use instead. \\[2cm]
+    Caster Wheel & 1 & \$0 & The caster wheel consists of 2 parts, a marble and it's 3D printed casing. The 3D print will be supplied by the club at no charge - and just like with the wheels, the STL is available in this repository. Marbles are also supplied by the club. \\
     \bottomrule
-\end{tabularx}
+\end{tabular}
 
 \bigskip
 
@@ -289,7 +300,7 @@ Additional sensors can be bought and integrated with TinyBot, however that is no
 \pagebreak
 \subfile{sections/microcontroller.tex}
 
-\newpage
+\pagebreak
 \subfile{sections/motor.tex}
 
 \pagebreak
@@ -322,7 +333,7 @@ These challenges require knowledge that is not covered in this guide.
     \item Make a line following robot (requires a light sensor)
     \item Make a robot that bounces of walls or other objects in its way (requires an ultrasonic sensor)
 \end{itemize}
-Tinybot has been designed so that sensors and additional functionality can be easily added, adding components to a breadboard is fairly trivial. However, the programming aspect of these extra challenging challenges is quite involved.
+TinyBot has been designed so that sensors and additional functionality can be easily added, adding components to a breadboard is fairly trivial. However, the programming aspect of these extra challenging challenges is quite involved.
 
 
 \end{document}
